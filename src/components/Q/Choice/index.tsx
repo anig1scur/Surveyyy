@@ -17,16 +17,16 @@ import { StoredContext } from '../../../context';
 
 export type Props = BaseComponentProps & {
   q: ChoiceQ;
-  onChange?: (values: Set<string>) => void;
+  onChange?: (values: { [key: string]: Set<string> }) => void;
 };
 
 export const Choice: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
 
-  const { form, customData, setCustomData } = useContext(StoredContext);
+  const { form, setSkipped, customData, setCustomData } = useContext(StoredContext);
   const ref = useRef<HTMLInputElement>(null);
   const choiceQ = q;
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set(form[q.id]));
+  const [selectedValues, setSelectedValues] = useState<Set<string>>((form[q.id] as Set<string>) || new Set());
   const [customValue, setCustomValue] = useState<string>(customData[q.id] || '');
   const [displayCustomInput, setDisplayCustomInput] = useState<boolean>(false);
 
@@ -46,7 +46,7 @@ export const Choice: FC<Props> = (props) => {
       newSet.add(newVal);
     }
     setSelectedValues(newSet);
-    onChange && onChange(newSet);
+    onChange && onChange({ [q.id]: newSet });
     setDisplayCustomInput(false);
   }
 
@@ -70,7 +70,12 @@ export const Choice: FC<Props> = (props) => {
                   if (e.currentTarget.checked) {
                     const newVal = new Set([option.value]);
                     setSelectedValues(newVal);
-                    onChange && onChange(newVal);
+                    onChange && onChange({ [q.id]: newVal });
+                    if (option.skip && option.skip.size > 0) {
+                      setSkipped((skipped) => new Set([...skipped, ...(option.skip as Set<string>)]));
+                    }
+                  } else {
+                    setSkipped((skipped) => new Set([...skipped].filter((v) => !option.skip?.has(v))));
                   }
                 }}
               />
@@ -88,15 +93,20 @@ export const Choice: FC<Props> = (props) => {
                 type='checkbox'
                 name='choice'
                 value={option.value}
-                onClick={(e) => {
+                checked={selectedValues.has(option.value)}
+                onChange={(e) => {
                   const newSet = selectedValues;
                   if (e.currentTarget.checked) {
                     newSet.add(option.value);
+                    if (option.skip && option.skip.size > 0) {
+                      setSkipped((skipped) => new Set([...skipped, ...(option.skip as Set<string>)]));
+                    }
                   } else {
                     newSet.delete(option.value);
+                    setSkipped((skipped) => new Set([...skipped].filter((v) => !option.skip?.has(v))));
                   }
                   setSelectedValues(newSet);
-                  onChange && onChange(newSet);
+                  onChange && onChange({ [q.id]: newSet });
                 }}
               />
               <span>{option.text}</span>

@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 
 export type BaseComponentProps = {
-  className?: string
-  style?: CSSProperties
+  className?: string;
+  style?: CSSProperties;
 };
 
 export enum QuestionType {
@@ -13,22 +13,21 @@ export enum QuestionType {
 }
 
 export interface selectedValuesType {
-  [key: string]: string | Set<string> | string[] |number;
+  [key: string]: string | Set<string> | string[] | number;
 }
 
 export interface inputType {
   [key: string]: string;
 }
 
-
 export enum PayloadType {
   modal = 'modal',
 }
 // 可能是个弹窗 anything
 export type Payload = {
-  type: PayloadType
-  title?: string
-  desc: string
+  type: PayloadType;
+  title?: string;
+  desc: string;
 };
 
 export type Attachment = {
@@ -37,53 +36,52 @@ export type Attachment = {
 };
 
 export type Option = {
-  text: string
-  value: string
-  attachment?: Attachment
+  text: string;
+  value: string;
+  attachment?: Attachment;
+  skip?: Set<string>;
 };
 
 export type Question = {
-  id: string
-  type: QuestionType
-  title?: string
-  surveyId?: number
-  attachment?: Attachment
-  tip?: string
+  id: string;
+  type: QuestionType;
+  title?: string;
+  surveyId?: number;
+  attachment?: Attachment;
+  tip?: string;
 };
 
 export type Survey = {
-  questions: Q[]
-  id: string
-  title: string
-  authorId: string
-  createdAt?: Date
+  questions: Q[];
+  id: string;
+  title: string;
+  authorId: string;
+  createdAt?: Date;
 };
 
 export type Choice = {
   question_id: string;
-  value: string
+  value: string;
 };
 
 export type Sample = {
-  questions: Question[]
-  id: string
-  surveyId: string
-  username: string
-  createdAt: Date
-  choices: Choice[]
+  questions: Question[];
+  id: string;
+  surveyId: string;
+  username: string;
+  createdAt: Date;
+  choices: Choice[];
 };
-
 
 export type ChoiceQ = Question & {
   type: QuestionType.choice;
   options: Option[];
 
-  // maxChoice === 1 -> radio
-  // maxChoice > 1 -> checkbox
+  allowMultiple: boolean;
+  // allowMultiple === true ? checkbox:radio
   allowCustom: boolean;
   // allowCustom === true -> allow user to input custom option
-  allowMultiple: boolean;
-}
+};
 
 export type rangeItem = [number, string];
 
@@ -108,7 +106,7 @@ export type cardItem = {
   attachment?: Attachment;
   yesLabel: string;
   noLabel: string;
-}
+};
 
 export type SwiperQ = Question & {
   type: QuestionType.swiper;
@@ -118,7 +116,7 @@ export type SwiperQ = Question & {
 export enum fillInType {
   plain = 'plain',
   blank = 'blank',
-};
+}
 
 export type PlainItem = {
   text: string;
@@ -138,6 +136,5 @@ export type FillInBlankQ = Question & {
   type: QuestionType.fillInBlank;
   config: FillInBlankConfig;
 };
-
 
 export type Q = ChoiceQ | SliderQ | SwiperQ | FillInBlankQ;

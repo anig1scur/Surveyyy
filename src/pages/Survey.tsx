@@ -2,12 +2,25 @@ import React, { FC, useContext, useEffect, useState } from 'react';
 import { Survey as SurveyType, Question, Q, QuestionType } from '../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
+import { PadletBox } from '../components/padlet';
 import { Choice, FillInTheBlank, Slider, Swiper } from '../components/Q';
 import { StoredContext } from '../context';
+
+const componentMap = {
+  [QuestionType.choice]: Choice,
+  [QuestionType.fillInBlank]: FillInTheBlank,
+  [QuestionType.slider]: Slider,
+  [QuestionType.swiper]: Swiper,
+};
 
 export type Props = {
   survey: SurveyType;
 };
+
+export enum ActionType {
+  back = 'back',
+  next = 'next',
+}
 
 export type HeaderProps = {
   active: number;
@@ -67,8 +80,10 @@ const Foot: FC<FootProps> = (props) => {
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
 
-  const { form, setForm } = useContext(StoredContext);
+  const { skipped, form, setForm } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
+  const questions = survey.questions;
 
   useEffect(() => {
     console.log(form);
@@ -76,73 +91,39 @@ const Survey: FC<Props> = (props) => {
 
   const onGoBack = () => {
     setActiveIdx((i) => i - 1);
+    setLastChoice(ActionType.back);
   };
   const onGoNext = () => {
     setActiveIdx((i) => i + 1);
+    setLastChoice(ActionType.next);
   };
 
-  const renderQ = (question: Q) => {
-    switch (question.type) {
-      case QuestionType.choice:
-        return (
-          <Choice
-            q={question}
-            onChange={(data) =>
-              setForm((f) => {
-                return {
-                  ...f,
-                  [question.id]: data,
-                };
-              })
-            }
-          />
-        );
-      case QuestionType.fillInBlank:
-        return (
-          <FillInTheBlank
-            q={question}
-            onChange={(data) =>
-              setForm((f) => {
-                return {
-                  ...f,
-                  ...data,
-                };
-              })
-            }
-          />
-        );
-      case QuestionType.slider:
-        return (
-          <Slider
-            q={question}
-            onChange={(data) => {
-              console.log(data);
-              setForm((f) => {
-                return {
-                  ...f,
-                  ...data,
-                };
-              });
-            }}
-          />
-        );
-      case QuestionType.swiper:
-        return (
-          <Swiper
-            q={question}
-            onChange={(data) =>
-              setForm((f) => {
-                return {
-                  ...f,
-                  ...data,
-                };
-              })
-            }
-          />
-        );
-      default:
-        return <div>Not implemented</div>;
+  useEffect(() => {
+    if (skipped.has(questions[activeIdx].id)) {
+      if (lastChoice === ActionType.back) {
+        onGoBack();
+      } else {
+        onGoNext();
+      }
     }
+  }, [activeIdx]);
+
+  const renderQ = (question: Q) => {
+    const Component = componentMap[question.type];
+    return (
+      <Component
+        q={question}
+        key={question.id}
+        onChange={(data) =>
+          setForm((f) => {
+            return {
+              ...f,
+              ...data,
+            };
+          })
+        }
+      />
+    );
   };
 
   const progress = (activeIdx / survey.questions.length) * 100;
@@ -155,12 +136,7 @@ const Survey: FC<Props> = (props) => {
       />
       <div className='flex flex-col items-center'>
         {renderQ(survey.questions[activeIdx])}
-        <button
-          onClick={() => {
-            onGoNext();
-          }}>
-          next
-        </button>
+        <button onClick={onGoNext}>next</button>
       </div>
       <Foot progress={progress} />
     </div>
