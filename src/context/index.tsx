@@ -8,14 +8,14 @@ export const StoredContext = createContext<{
   setForm: Dispatch<SetStateAction<selectedValuesType>>;
   customData: inputType;
   setCustomData: Dispatch<SetStateAction<inputType>>;
-  skipped: Set<string>;
-  setSkipped: Dispatch<SetStateAction<Set<string>>>;
+  skipped: { [key: string]: Set<string> };
+  setSkipped: Dispatch<SetStateAction<{ [key: string]: Set<string> }>>;
 }>({} as any);
 
 export const StoredProvider = ({ children }: { children: ReactNode }) => {
   const [form, setForm] = useState<selectedValuesType>({});
   const [customData, setCustomData] = useState<inputType>({});
-  const [skipped, setSkipped] = useState<Set<string>>(new Set());
+  const [skipped, setSkipped] = useState<{[key: string]: Set<string>}>({});
   return (
     <StoredContext.Provider
       value={{

@@ -23,7 +23,7 @@ export type Props = BaseComponentProps & {
 export const Choice: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
 
-  const { form, setSkipped, customData, setCustomData } = useContext(StoredContext);
+  const { form, skipped, setSkipped, customData, setCustomData } = useContext(StoredContext);
   const ref = useRef<HTMLInputElement>(null);
   const choiceQ = q;
   const [selectedValues, setSelectedValues] = useState<Set<string>>((form[q.id] as Set<string>) || new Set());
@@ -71,11 +71,10 @@ export const Choice: FC<Props> = (props) => {
                     const newVal = new Set([option.value]);
                     setSelectedValues(newVal);
                     onChange && onChange({ [q.id]: newVal });
-                    if (option.skip && option.skip.size > 0) {
-                      setSkipped((skipped) => new Set([...skipped, ...(option.skip as Set<string>)]));
-                    }
-                  } else {
-                    setSkipped((skipped) => new Set([...skipped].filter((v) => !option.skip?.has(v))));
+                    setSkipped({
+                      ...skipped,
+                      [q.id]: option.skip || new Set(),
+                    });
                   }
                 }}
               />
@@ -98,14 +97,20 @@ export const Choice: FC<Props> = (props) => {
                   const newSet = selectedValues;
                   if (e.currentTarget.checked) {
                     newSet.add(option.value);
-                    if (option.skip && option.skip.size > 0) {
-                      setSkipped((skipped) => new Set([...skipped, ...(option.skip as Set<string>)]));
-                    }
                   } else {
                     newSet.delete(option.value);
-                    setSkipped((skipped) => new Set([...skipped].filter((v) => !option.skip?.has(v))));
                   }
                   setSelectedValues(newSet);
+
+                  // get all option skip from newSet and setSkipped
+                  const skip = new Set<string>();
+                  newSet.forEach((val) => {
+                    const option = choiceQ.options.find((o) => o.value === val);
+                    if (option && option.skip) {
+                      option.skip.forEach((s) => skip.add(s));
+                    }
+                  });
+                  setSkipped({ [q.id]: skip });
                   onChange && onChange({ [q.id]: newSet });
                 }}
               />

@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Survey as SurveyType, Question, Q, QuestionType } from '../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
@@ -85,8 +85,9 @@ const Survey: FC<Props> = (props) => {
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
   const questions = survey.questions;
 
-  useEffect(() => {
-    console.log(form);
+  useLayoutEffect(() => {
+    // console.log(form);
+    console.log('skipped', skipped);
   }, [form]);
 
   const onGoBack = () => {
@@ -98,8 +99,15 @@ const Survey: FC<Props> = (props) => {
     setLastChoice(ActionType.next);
   };
 
-  useEffect(() => {
-    if (skipped.has(questions[activeIdx].id)) {
+  useLayoutEffect(() => {
+    // union all skipped question by skipped values
+    const skippedQs = new Set(
+        Object.values(skipped).reduce((acc, cur) => {
+          return [...acc, ...cur];
+        }, [] as string[])
+      );
+
+    if (skippedQs.has(questions[activeIdx].id)) {
       if (lastChoice === ActionType.back) {
         onGoBack();
       } else {
