@@ -36,7 +36,7 @@ const lastChoice = (state = initialState, action: YesNoAction): LastChoiceState 
       return {
         ...state,
         type: RESET,
-        currentCardIndex: 4,
+        currentCardIndex: state.cardsLength,
         selectedValues: {},
       };
     case INIT_STATE:

@@ -6,9 +6,9 @@ export const INIT_STATE = 'INIT_STATE';
 export type ChoiceActionType = typeof YES | typeof NO | typeof RESET | typeof INIT_STATE;
 
 export interface YesNoAction {
-  type: ChoiceActionType,
-  currentCardIndex: number,
-  cardsLength?: number,
+  type: ChoiceActionType;
+  currentCardIndex: number;
+  cardsLength?: number;
 }
 
 export const yes = (index: number): YesNoAction => ({

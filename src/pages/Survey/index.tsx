@@ -1,11 +1,10 @@
 import React, { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { Survey as SurveyType, Question, Q, P, QuestionType, S } from '../common/types';
+import { Survey as SurveyType, Question, Q, P, QuestionType, S } from '../../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
-import { PadletBox } from '../components/P/Padlet';
-import { Choice, FillInTheBlank, Slider, Swiper } from '../components/Q';
-import { StoredContext } from '../context';
-import { Page } from '../components/P/Page';
+import { Choice, FillInTheBlank, Slider, Swiper } from '../../components/Q';
+import { StoredContext } from '../../context';
+import { Page } from '../../components/P/Page';
 
 const QcomponentMap = {
   [QuestionType.choice]: Choice,
@@ -86,11 +85,6 @@ const Survey: FC<Props> = (props) => {
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
   const questions = survey.sections;
 
-  useLayoutEffect(() => {
-    // console.log(form);
-    console.log('skipped', skipped);
-  }, [form]);
-
   const onGoBack = () => {
     setActiveIdx((i) => i - 1);
     setLastChoice(ActionType.back);
@@ -118,7 +112,6 @@ const Survey: FC<Props> = (props) => {
   }, [activeIdx]);
 
   const renderS = (section: S) => {
-    // renderQ if section type in QcomponentMap
     if (section.type in QcomponentMap) {
       return renderQ(section as Q);
     } else {
@@ -150,7 +143,7 @@ const Survey: FC<Props> = (props) => {
 
   const progress = (activeIdx / survey.sections.length) * 100;
   return (
-    <div className='w-screen max-w-[48em]'>
+    <div className='w-screen max-w-[48em] survey'>
       <Header
         active={activeIdx}
         total={survey.sections.length}

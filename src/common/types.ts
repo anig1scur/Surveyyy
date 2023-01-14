@@ -95,7 +95,7 @@ export type SliderQ = Question & {
   min: number;
   max: number;
   step: number;
-  value: number;
+  value?: number;
   labelConfig: rangeItem[];
   valueType: valueType;
 };
@@ -104,8 +104,8 @@ export type cardItem = {
   id: string;
   text?: string;
   attachment?: Attachment;
-  yesLabel: string;
-  noLabel: string;
+  yesLabel?: string;
+  noLabel?: string;
 };
 
 export type SwiperQ = Question & {

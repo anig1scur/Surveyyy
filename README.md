@@ -7,7 +7,7 @@ A Web app to create and share survey. Support creating the following question ty
 3. fill in the blank
 4. swiper (yes or no)
 
-## Serveless host
+## Serverless Hosting
 
 ### mongodb
 

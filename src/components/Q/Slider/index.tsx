@@ -13,7 +13,7 @@ export const Slider: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
 
   const { form } = useContext(StoredContext);
-  const [value, setValue] = useState<number>((form[q.id] as number) || q.value);
+  const [value, setValue] = useState<number>((form[q.id] as number) || q.value || q.min);
 
   function getLabel(value: number) {
     return q.labelConfig.sort((a, b) => b[0] - a[0]).find(([threshold, _]) => value >= threshold)?.[1];
