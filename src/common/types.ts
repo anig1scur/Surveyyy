@@ -52,7 +52,7 @@ export type Question = {
 };
 
 export type Survey = {
-  questions: Q[];
+  sections: S[];
   id: string;
   title: string;
   authorId: string;
@@ -138,3 +138,16 @@ export type FillInBlankQ = Question & {
 };
 
 export type Q = ChoiceQ | SliderQ | SwiperQ | FillInBlankQ;
+
+export type Page = {
+  type: 'page';
+  id: string;
+  title: string;
+  text?: string;
+  iframeSrc?: string;
+  redirectUri?: string;
+  redirectDelay?: number;
+};
+
+export type P = Page ;
+export type S = Q | P;

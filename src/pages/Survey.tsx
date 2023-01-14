@@ -1,12 +1,13 @@
 import React, { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { Survey as SurveyType, Question, Q, QuestionType } from '../common/types';
+import { Survey as SurveyType, Question, Q, P, QuestionType, S } from '../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
-import { PadletBox } from '../components/padlet';
+import { PadletBox } from '../components/P/Padlet';
 import { Choice, FillInTheBlank, Slider, Swiper } from '../components/Q';
 import { StoredContext } from '../context';
+import { Page } from '../components/P/Page';
 
-const componentMap = {
+const QcomponentMap = {
   [QuestionType.choice]: Choice,
   [QuestionType.fillInBlank]: FillInTheBlank,
   [QuestionType.slider]: Slider,
@@ -83,7 +84,7 @@ const Survey: FC<Props> = (props) => {
   const { skipped, form, setForm } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
-  const questions = survey.questions;
+  const questions = survey.sections;
 
   useLayoutEffect(() => {
     // console.log(form);
@@ -102,10 +103,10 @@ const Survey: FC<Props> = (props) => {
   useLayoutEffect(() => {
     // union all skipped question by skipped values
     const skippedQs = new Set(
-        Object.values(skipped).reduce((acc, cur) => {
-          return [...acc, ...cur];
-        }, [] as string[])
-      );
+      Object.values(skipped).reduce((acc, cur) => {
+        return [...acc, ...cur];
+      }, [] as string[])
+    );
 
     if (skippedQs.has(questions[activeIdx].id)) {
       if (lastChoice === ActionType.back) {
@@ -116,10 +117,23 @@ const Survey: FC<Props> = (props) => {
     }
   }, [activeIdx]);
 
+  const renderS = (section: S) => {
+    // renderQ if section type in QcomponentMap
+    if (section.type in QcomponentMap) {
+      return renderQ(section as Q);
+    } else {
+      return renderP(section as P);
+    }
+  };
+
+  const renderP = (page: P) => {
+    return <Page {...page} />;
+  };
   const renderQ = (question: Q) => {
-    const Component = componentMap[question.type];
+    const Component = QcomponentMap[question.type];
     return (
       <Component
+        // TODO: fixme
         q={question}
         key={question.id}
         onChange={(data) =>
@@ -134,16 +148,16 @@ const Survey: FC<Props> = (props) => {
     );
   };
 
-  const progress = (activeIdx / survey.questions.length) * 100;
+  const progress = (activeIdx / survey.sections.length) * 100;
   return (
     <div className='w-screen max-w-[48em]'>
       <Header
         active={activeIdx}
-        total={survey.questions.length}
+        total={survey.sections.length}
         onGoBack={onGoBack}
       />
       <div className='flex flex-col items-center'>
-        {renderQ(survey.questions[activeIdx])}
+        {renderS(survey.sections[activeIdx])}
         <button onClick={onGoNext}>next</button>
       </div>
       <Foot progress={progress} />

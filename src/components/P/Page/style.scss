@@ -1,0 +1,30 @@
+.padlet-embed {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background: #f4f4f4;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  iframe {
+    width: 100%;
+    height: 608px;
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  a {
+    display: block;
+    flex-grow: 0;
+    margin: 0;
+    border: none;
+    padding: 0;
+    text-decoration: none;
+  }
+}

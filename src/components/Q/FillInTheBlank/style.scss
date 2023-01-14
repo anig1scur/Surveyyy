@@ -4,6 +4,7 @@
   border-radius: 10px;
   background-color: white;
   color: black;
+  line-height: 2;
 
   .blank {
     cursor: pointer;
@@ -11,7 +12,7 @@
     display: inline-flex;
     background-color: #5a47a533;
     border-bottom: 2px solid rgb(64, 49, 126);
-
+    display: inline;
     &.selected {
       background-color: rgba(255, 165, 0, 0.2);
       border-bottom: 2px solid orange;

@@ -1,6 +1,6 @@
 ## Survey Creator
 
-A web app to help people create and share survey. Support creating the following question types:
+A Web app to create and share survey. Support creating the following question types:
 
 1. slider
 2. choice (multi / single, custom option)
