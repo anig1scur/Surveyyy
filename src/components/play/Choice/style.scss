@@ -1,0 +1,55 @@
+.choice {
+  color: rgb(197, 40, 40);
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .radio {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 1px solid white;
+      cursor: pointer;
+      &:hover {
+        background-color: #c47c7c;
+      }
+      &:focus {
+        outline: none;
+      }
+      .confirm {
+        display: none;
+      }
+      &.selected {
+        background-color: #ba5252;
+        color: #333;
+        .confirm {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .checkbox-group {
+  }
+  .custom-choice {
+    &.selected {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .input {
+      color: #ba5252;
+      background-color: #ba5252;
+    }
+    cursor: pointer;
+    &:focus {
+      color: #333;
+      outline: none;
+    }
+    .confirm {
+    }
+  }
+}

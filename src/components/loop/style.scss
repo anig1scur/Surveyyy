@@ -1,0 +1,31 @@
+@keyframes slideAnimation {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100%));
+    }
+}
+
+.looper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.looper__innerList {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+
+    div {
+        padding-left: 10px;
+    }
+
+}
+
+.looper__listInstance {
+    display: flex;
+    width: max-content;
+    animation: slideAnimation linear infinite;
+}

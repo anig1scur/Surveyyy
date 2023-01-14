@@ -1,0 +1,10 @@
+{
+	"buildCommand": "tsc && vite build",
+	"outputDirectory": "dist",
+	"installCommand": "yarn install",
+	"framework": "vite",
+	"rewrites": [
+		{ "source": "/api/(.*)", "destination": "/api/serverless.ts" },
+	    { "source": "/(.*)", "destination": "/index.html" }
+	]
+}
