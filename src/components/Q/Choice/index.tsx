@@ -131,3 +131,6 @@ export const Choice: FC<Props> = (props) => {
     </div>
   );
 };
+
+
+export default Choice;

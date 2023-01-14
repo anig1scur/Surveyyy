@@ -1,21 +1,29 @@
 // https://github.com/3DJakob/react-tinder-card
 
 import { FC, useEffect } from 'react';
-import { faCheckCircle, faTimesCircle, faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-
-import { useDispatch } from 'react-redux';
-import Card from './Card';
-import './style.scss';
-import { useSelector } from 'react-redux';
-import { RootState } from './redux/reducers';
-import Button from './Button';
-import { NO, YES, RESET, INIT_STATE } from './redux/actions';
-import { SwiperQ, BaseComponentProps, selectedValuesType } from '../../../common/types';
 import classNames from 'classnames';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { faCheckCircle, faTimesCircle, faPlayCircle } from '@fortawesome/free-regular-svg-icons';
+import { RootState } from './redux/reducers';
+import { NO, YES, RESET, INIT_STATE } from './redux/actions';
+import { store } from './redux/store';
+import { SwiperQ, BaseComponentProps, selectedValuesType } from '../../../common/types';
+
+import './style.scss';
+import Card from './Card';
+import Button from './Button';
 
 export type Props = BaseComponentProps & {
   q: SwiperQ;
   onChange?: (selectedValues: selectedValuesType) => void;
+};
+
+export const SwiperWrapper: FC<Props> = (props) => {
+  return (
+    <Provider store={store}>
+      <Swiper {...props} />
+    </Provider>
+  );
 };
 
 export const Swiper: FC<Props> = (props) => {
@@ -68,4 +76,4 @@ export const Swiper: FC<Props> = (props) => {
   );
 };
 
-export default Swiper;
+export default SwiperWrapper;

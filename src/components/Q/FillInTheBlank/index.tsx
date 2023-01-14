@@ -73,3 +73,5 @@ export const FillInTheBlank: FC<Props> = (props) => {
     </div>
   );
 };
+
+export default FillInTheBlank;

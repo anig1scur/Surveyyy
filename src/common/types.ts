@@ -48,7 +48,7 @@ export type Question = {
 };
 
 export type Survey = {
-  questions: Question[]
+  questions: (ChoiceQ | SliderQ | SwiperQ | FillInBlankQ)[]
   id: string
   title: string
   authorId: string
@@ -83,6 +83,11 @@ export type ChoiceQ = Question & {
 
 export type rangeItem = [number, string];
 
+export enum valueType {
+  number = 'number',
+  string = 'string',
+}
+
 export type SliderQ = Question & {
   type: QuestionType.slider;
   min: number;
@@ -90,7 +95,7 @@ export type SliderQ = Question & {
   step: number;
   value: number;
   labelConfig: rangeItem[];
-  resultType: 'number' | 'string';
+  valueType: valueType;
 };
 
 export type cardItem = {
@@ -129,3 +134,6 @@ export type FillInBlankQ = Question & {
   type: QuestionType.fillInBlank;
   config: FillInBlankConfig;
 };
+
+
+export type Q = ChoiceQ | SliderQ | SwiperQ | FillInBlankQ;

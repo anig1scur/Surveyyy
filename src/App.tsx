@@ -5,11 +5,16 @@ import Content from './pages/Intro';
 import Result from './pages/Result';
 import Survey from './pages/Survey';
 import { SurveyMock } from './common/mock';
-import { FillInTheBlank } from './components/play/FillInTheBlank';
-import { FillInBlankConfig, fillInType, ChoiceQ, QuestionType, SliderQ, SwiperQ, FillInBlankQ } from './common/types';
-import { Choice } from './components/play/Choice';
-import { Slider } from './components/play/Slider';
-import Swiper from './components/play/Swiper';
+import {
+  valueType,
+  fillInType,
+  ChoiceQ,
+  QuestionType,
+  SliderQ,
+  SwiperQ,
+  FillInBlankQ,
+} from './common/types';
+import { Choice, Slider, FillInTheBlank, Swiper } from './components/Q';
 
 export type Props = {};
 
@@ -79,7 +84,7 @@ const sliderQ: SliderQ = {
   max: 100,
   step: 3,
   value: 50,
-  resultType: 'string',
+  valueType: valueType.string,
   labelConfig: [
     [5, 'asd'],
     [0, 'tyr'],
@@ -148,11 +153,9 @@ const App: FC<Props> = () => (
           path='/game'
           element={
             // <FillInTheBlank q={fillInTheBlankQ} />
-            <Slider config={sliderQ} />
+            <Slider q={sliderQ} />
             // <Choice q={choiceQ} />
-            // <Provider store={store}>
             //   <Swiper q={swiperQ} />
-            // </Provider>
           }
         />
         <Route

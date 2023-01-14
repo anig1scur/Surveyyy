@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Survey as SurveyType, Question } from '../common/types';
-import CardStack, { Card } from '../components/cardStack';
+import { Survey as SurveyType, Question, Q, QuestionType } from '../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
-import InfiniteLooper from '../components/loop';
+import { Choice, FillInTheBlank, Slider, Swiper } from '../components/Q';
 
 export type Props = {
   survey: SurveyType;
@@ -47,33 +46,6 @@ export type QuestionProps = {
   question: Question;
 };
 
-const Body: FC<QuestionProps> = (props) => {
-  const { question } = props;
-  return (
-    <div>
-      {question.title}
-      <div>
-        {question.options?.map((o) => (
-          <label
-            className='plan basic-plan'
-            key={o.value}
-            htmlFor='basic'>
-            <input
-              defaultChecked
-              type='radio'
-              name='plan'
-              value={o.value}
-            />
-            <div className='plan-content'>
-              <p>{o.text}</p>
-            </div>
-          </label>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 export type FootProps = {
   progress: number;
 };
@@ -93,20 +65,32 @@ const Foot: FC<FootProps> = (props) => {
 
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
-  const initCards = survey.questions.map((q) => {
-    return { question: q.title, options: q.options?.map((i) => i.text) || [] };
-  });
+
   const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [cards, setCards] = useState<Array<Card>>(initCards);
+  const [displayedQ, setDisplayedQ] = useState<Question>();
 
   const onGoBack = () => {
-    setCards(initCards.slice(initCards.length - cards.length - 1));
     setActiveIdx((i) => i - 1);
   };
   const onGoNext = () => {
-    setCards(cards.slice(1));
     setActiveIdx((i) => i + 1);
   };
+
+  const renderQ = (question: Q) => {
+    switch (question.type) {
+      case QuestionType.choice:
+        return <Choice q={question} />;
+      case QuestionType.fillInBlank:
+        return <FillInTheBlank q={question} />;
+      case QuestionType.slider:
+        return <Slider q={question} />;
+      case QuestionType.swiper:
+        return <Swiper q={question} />;
+      default:
+        return <div>Not implemented</div>;
+    }
+  };
+
   const progress = (activeIdx / survey.questions.length) * 100;
   return (
     <div className='w-screen max-w-[48em]'>
@@ -115,20 +99,15 @@ const Survey: FC<Props> = (props) => {
         total={survey.questions.length}
         onGoBack={onGoBack}
       />
-      {/* <InfiniteLooper speed={ 2 } direction="right">
-        <div className="contentBlock contentBlock--one">
-          Place the stuff you want to loop
-        </div>
-        <div className="contentBlock contentBlock--one">
-          ;ladkal;s;dlk
-        </div>
-      </InfiniteLooper> */}
-
-      <CardStack
-        cards={cards}
-        onGoBack={onGoBack}
-        onGoNext={onGoNext}
-      />
+      <div className='flex flex-col items-center'>
+        {renderQ(survey.questions[activeIdx])}
+        <button
+          onClick={() => {
+            setActiveIdx((i) => i + 1);
+          }}>
+          next
+        </button>
+      </div>
       <Foot progress={progress} />
     </div>
   );
