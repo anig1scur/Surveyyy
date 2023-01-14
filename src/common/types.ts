@@ -81,7 +81,7 @@ export type ChoiceQ = Question & {
   allowMultiple: boolean;
 }
 
-
+export type rangeItem = [number, string];
 
 export type SliderQ = Question & {
   type: QuestionType.slider;
@@ -89,9 +89,7 @@ export type SliderQ = Question & {
   max: number;
   step: number;
   value: number;
-  labelConfig: {
-    [bound: string]: string;
-  }
+  labelConfig: rangeItem[];
   resultType: 'number' | 'string';
 };
 

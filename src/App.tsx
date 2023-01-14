@@ -75,20 +75,21 @@ const sliderQ: SliderQ = {
   id: 1,
   type: QuestionType.slider,
   title: 'What is your favorite color?',
-  min: 0,
+  min: 1,
   max: 100,
-  step: 1,
+  step: 3,
   value: 50,
   resultType: 'string',
-  labelConfig: {
-    5: 'asd',
-    10: 'ertr',
-    15: 'sdf',
-    25: 'oiuou',
-    30: 'kjhjk',
-    35: 'Yui',
-    100: 'cvbcvb',
-  },
+  labelConfig: [
+    [5, 'asd'],
+    [0, 'tyr'],
+    [10, 'ertr'],
+    [15, 'sdf'],
+    [25, 'oiuou'],
+    [30, 'kjhjk'],
+    [35, 'Yui'],
+    [100, 'cvbcvb'],
+  ],
 };
 
 const swiperQ: SwiperQ = {
@@ -146,8 +147,8 @@ const App: FC<Props> = () => (
         <Route
           path='/game'
           element={
-            <FillInTheBlank q={fillInTheBlankQ} />
-            //<Slider config={sliderQ} />
+            // <FillInTheBlank q={fillInTheBlankQ} />
+            <Slider config={sliderQ} />
             // <Choice q={choiceQ} />
             // <Provider store={store}>
             //   <Swiper q={swiperQ} />

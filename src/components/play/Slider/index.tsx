@@ -1,7 +1,7 @@
 import './style.scss';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import classnames from 'classnames';
-import { SliderQ, BaseComponentProps, QuestionType } from '../../../common/types';
+import { SliderQ, BaseComponentProps } from '../../../common/types';
 
 export type Props = BaseComponentProps & {
   config: SliderQ;
@@ -14,12 +14,8 @@ export const Slider: FC<Props> = (props) => {
 
   function getLabel(value: number) {
     const labelConfig = config.labelConfig;
-    Object.keys(labelConfig).map((k: string) => {
-      if (value < parseInt(k)) {
-        return labelConfig[parseInt(k)];
-      }
-    });
-    return labelConfig[Object.keys(labelConfig).length - 1];
+    // sort labelConfig by threshold and return the first label that matches
+    return labelConfig.sort((a, b) => b[0]- a[0]).find(([threshold, _]) => value >= threshold)?.[1];
   }
 
   return (
@@ -41,7 +37,6 @@ export const Slider: FC<Props> = (props) => {
           }}
         />
       </div>
-      <div>{getLabel(value)}</div>
       <div className='slider-label'>{config.resultType === 'number' ? value : getLabel(value)}</div>
     </div>
   );
