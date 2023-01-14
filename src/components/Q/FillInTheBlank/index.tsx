@@ -2,9 +2,18 @@
  * Fill in the blank with dropdown options
  */
 import './style.scss';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useContext } from 'react';
 import classnames from 'classnames';
-import { FillInBlankConfig, FillInBlankQ, BlankItem, PlainItem, BaseComponentProps, fillInType, selectedValuesType } from '../../../common/types';
+import {
+  FillInBlankConfig,
+  FillInBlankQ,
+  BlankItem,
+  PlainItem,
+  BaseComponentProps,
+  fillInType,
+  selectedValuesType,
+} from '../../../common/types';
+import { StoredContext } from '../../../context';
 
 export type Props = BaseComponentProps & {
   q: FillInBlankQ;
@@ -15,7 +24,8 @@ export const FillInTheBlank: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
   const config = q.config;
 
-  const selectedValues: selectedValuesType = {}
+  const { form } = useContext(StoredContext);
+  const selectedValues: selectedValuesType = form;
 
   const [fillInTheBlankConfig, setFillInTheBlankConfig] = useState<FillInBlankConfig>([]);
 
@@ -35,7 +45,11 @@ export const FillInTheBlank: FC<Props> = (props) => {
           return (
             <div
               key={index}
-              className='blank'
+              className={classnames(
+                'blank', {
+                  selected: selectedValues[item.id],
+                }
+              )}
               onMouseEnter={(e) => {
                 document.querySelectorAll('.blank').forEach((blank) => {
                   blank.classList.remove('show-menu');

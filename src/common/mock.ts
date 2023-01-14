@@ -6,7 +6,7 @@ export const SurveyMock: Survey = {
   id: '0',
   questions: [
     {
-      id: 123,
+      id: '1234',
       type: QuestionType.fillInBlank,
       config: [
         {
@@ -14,7 +14,7 @@ export const SurveyMock: Survey = {
           type: fillInType.plain,
         },
         {
-          id: 1,
+          id: '123-1',
           type: fillInType.blank,
           text: '？',
           options: ['运营', '设计', '开发'],
@@ -24,7 +24,7 @@ export const SurveyMock: Survey = {
           type: fillInType.plain,
         },
         {
-          id: 3,
+          id: '123-2',
           type: fillInType.blank,
           text: '？',
           options: ['夏天', '春天', '秋天', '冬天'],
@@ -34,7 +34,7 @@ export const SurveyMock: Survey = {
           type: fillInType.plain,
         },
         {
-          id: 4,
+          id: '123-3',
           type: fillInType.blank,
           text: '？',
           options: ['100km', '17km', '1km', '1m'],
@@ -42,7 +42,7 @@ export const SurveyMock: Survey = {
       ],
     },
     {
-      id: 1,
+      id: 'oipu',
       allowCustom: true,
       allowMultiple: false,
       type: QuestionType.choice,
@@ -63,7 +63,7 @@ export const SurveyMock: Survey = {
       ],
     },
     {
-      id: 1,
+      id: 'sdfgdf',
       type: QuestionType.slider,
       title: 'What is your favorite color?',
       min: 1,
@@ -83,22 +83,22 @@ export const SurveyMock: Survey = {
       ],
     },
     {
-      id: 1,
+      id: 'lkjklj',
       cards: [
         {
-          id: '1',
+          id: '233',
           text: 'Red',
           yesLabel: 'Yes',
           noLabel: 'No',
         },
         {
-          id: '2',
+          id: '56767',
           text: 'Blue',
           yesLabel: 'Yes',
           noLabel: 'No',
         },
         {
-          id: '4',
+          id: '67867',
           text: 'Green',
           yesLabel: 'Yes',
           noLabel: 'No',

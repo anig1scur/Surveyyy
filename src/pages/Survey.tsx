@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { Survey as SurveyType, Question, Q, QuestionType } from '../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
 import { Choice, FillInTheBlank, Slider, Swiper } from '../components/Q';
+import { StoredContext } from '../context';
 
 export type Props = {
   survey: SurveyType;
@@ -66,8 +67,12 @@ const Foot: FC<FootProps> = (props) => {
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
 
+  const { form, setForm } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [displayedQ, setDisplayedQ] = useState<Question>();
+
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
 
   const onGoBack = () => {
     setActiveIdx((i) => i - 1);
@@ -79,13 +84,62 @@ const Survey: FC<Props> = (props) => {
   const renderQ = (question: Q) => {
     switch (question.type) {
       case QuestionType.choice:
-        return <Choice q={question} />;
+        return (
+          <Choice
+            q={question}
+            onChange={(data) =>
+              setForm((f) => {
+                return {
+                  ...f,
+                  [question.id]: data,
+                };
+              })
+            }
+          />
+        );
       case QuestionType.fillInBlank:
-        return <FillInTheBlank q={question} />;
+        return (
+          <FillInTheBlank
+            q={question}
+            onChange={(data) =>
+              setForm((f) => {
+                return {
+                  ...f,
+                  ...data,
+                };
+              })
+            }
+          />
+        );
       case QuestionType.slider:
-        return <Slider q={question} />;
+        return (
+          <Slider
+            q={question}
+            onChange={(data) => {
+              console.log(data);
+              setForm((f) => {
+                return {
+                  ...f,
+                  ...data,
+                };
+              });
+            }}
+          />
+        );
       case QuestionType.swiper:
-        return <Swiper q={question} />;
+        return (
+          <Swiper
+            q={question}
+            onChange={(data) =>
+              setForm((f) => {
+                return {
+                  ...f,
+                  ...data,
+                };
+              })
+            }
+          />
+        );
       default:
         return <div>Not implemented</div>;
     }
@@ -103,7 +157,7 @@ const Survey: FC<Props> = (props) => {
         {renderQ(survey.questions[activeIdx])}
         <button
           onClick={() => {
-            setActiveIdx((i) => i + 1);
+            onGoNext();
           }}>
           next
         </button>

@@ -10,9 +10,10 @@
   */
 
 import './style.scss';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC, useRef, useState, useContext } from 'react';
 import classnames from 'classnames';
 import { ChoiceQ, BaseComponentProps } from '../../../common/types';
+import { StoredContext } from '../../../context';
 
 export type Props = BaseComponentProps & {
   q: ChoiceQ;
@@ -22,31 +23,30 @@ export type Props = BaseComponentProps & {
 export const Choice: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
 
+  const { form, customData, setCustomData } = useContext(StoredContext);
   const ref = useRef<HTMLInputElement>(null);
-  const [choiceQ, setChoiceQ] = useState<ChoiceQ>(q);
-  const [customValue, setCustomValue] = useState<string>('');
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set());
+  const choiceQ = q;
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set(form[q.id]));
+  const [customValue, setCustomValue] = useState<string>(customData[q.id] || '');
   const [displayCustomInput, setDisplayCustomInput] = useState<boolean>(false);
 
   const single = !choiceQ.allowMultiple;
 
-  useEffect(() => {
-    setChoiceQ(q);
-  }, [q]);
-
   function updateSelectedValues() {
-    selectedValues.delete(customValue);
+    const newSet = selectedValues;
+    newSet.delete(customValue);
     const newVal = ref.current?.value || '';
     setCustomValue(newVal);
+    setCustomData({ ...customData, [q.id]: newVal });
 
     if (newVal) {
       if (single) {
-        setSelectedValues(new Set([newVal]));
-      } else {
-        setSelectedValues(new Set([...selectedValues, newVal]));
+        newSet.clear();
       }
+      newSet.add(newVal);
     }
-    onChange && onChange(selectedValues);
+    setSelectedValues(newSet);
+    onChange && onChange(newSet);
     setDisplayCustomInput(false);
   }
 
@@ -62,15 +62,16 @@ export const Choice: FC<Props> = (props) => {
               className='radio-option'
               key={option.value}>
               <input
-                checked={selectedValues.has(option.value)}
                 type='radio'
                 name='choice'
                 value={option.value}
-                onClick={(e) => {
+                checked={selectedValues.has(option.value)}
+                onChange={(e) => {
                   if (e.currentTarget.checked) {
-                    setSelectedValues(new Set([option.value]));
+                    const newVal = new Set([option.value]);
+                    setSelectedValues(newVal);
+                    onChange && onChange(newVal);
                   }
-                  onChange && onChange(selectedValues);
                 }}
               />
               <span>{option.text}</span>
@@ -88,12 +89,14 @@ export const Choice: FC<Props> = (props) => {
                 name='choice'
                 value={option.value}
                 onClick={(e) => {
+                  const newSet = selectedValues;
                   if (e.currentTarget.checked) {
-                    setSelectedValues(new Set([...selectedValues, option.value]));
+                    newSet.add(option.value);
                   } else {
-                    setSelectedValues(new Set([...selectedValues].filter((v) => v !== option.value)));
+                    newSet.delete(option.value);
                   }
-                  onChange && onChange(selectedValues);
+                  setSelectedValues(newSet);
+                  onChange && onChange(newSet);
                 }}
               />
               <span>{option.text}</span>
@@ -131,6 +134,5 @@ export const Choice: FC<Props> = (props) => {
     </div>
   );
 };
-
 
 export default Choice;

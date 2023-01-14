@@ -13,6 +13,10 @@ export enum QuestionType {
 }
 
 export interface selectedValuesType {
+  [key: string]: string | Set<string> | string[] |number;
+}
+
+export interface inputType {
   [key: string]: string;
 }
 
@@ -39,7 +43,7 @@ export type Option = {
 };
 
 export type Question = {
-  id: number
+  id: string
   type: QuestionType
   title?: string
   surveyId?: number
@@ -48,7 +52,7 @@ export type Question = {
 };
 
 export type Survey = {
-  questions: (ChoiceQ | SliderQ | SwiperQ | FillInBlankQ)[]
+  questions: Q[]
   id: string
   title: string
   authorId: string
@@ -122,7 +126,7 @@ export type PlainItem = {
 };
 
 export type BlankItem = {
-  id: number;
+  id: string;
   text: string;
   type: fillInType.blank;
   options: string[];

@@ -1,17 +1,20 @@
 // https://github.com/3DJakob/react-tinder-card
 
-import { FC, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import classNames from 'classnames';
-import { Provider, useDispatch, useSelector } from 'react-redux';
 import { faCheckCircle, faTimesCircle, faPlayCircle } from '@fortawesome/free-regular-svg-icons';
-import { RootState } from './redux/reducers';
-import { NO, YES, RESET, INIT_STATE } from './redux/actions';
-import { store } from './redux/store';
-import { SwiperQ, BaseComponentProps, selectedValuesType } from '../../../common/types';
+
+import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import './style.scss';
 import Card from './Card';
 import Button from './Button';
+
+import { store } from './redux/store';
+import { RootState } from './redux/reducers';
+import { StoredContext } from '../../../context';
+import { NO, YES, RESET, INIT_STATE } from './redux/actions';
+import { SwiperQ, BaseComponentProps, selectedValuesType } from '../../../common/types';
 
 export type Props = BaseComponentProps & {
   q: SwiperQ;

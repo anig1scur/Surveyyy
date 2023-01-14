@@ -1,21 +1,22 @@
 import './style.scss';
-import { FC, useState } from 'react';
+import { FC, useState, useContext } from 'react';
 import classnames from 'classnames';
-import { SliderQ, BaseComponentProps, valueType } from '../../../common/types';
+import { SliderQ, BaseComponentProps, valueType, selectedValuesType } from '../../../common/types';
+import { StoredContext } from '../../../context';
 
 export type Props = BaseComponentProps & {
   q: SliderQ;
-  onChange?: (selectedValues: { [key: number]: string }) => void;
+  onChange?: (selectedValues: selectedValuesType) => void;
 };
 
 export const Slider: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
-  const [value, setValue] = useState<number>(q.value);
+
+  const { form } = useContext(StoredContext);
+  const [value, setValue] = useState<number>((form[q.id] as number) || q.value);
 
   function getLabel(value: number) {
-    const labelConfig = q.labelConfig;
-    // sort labelConfig by threshold and return the first label that matches
-    return labelConfig.sort((a, b) => b[0] - a[0]).find(([threshold, _]) => value >= threshold)?.[1];
+    return q.labelConfig.sort((a, b) => b[0] - a[0]).find(([threshold, _]) => value >= threshold)?.[1];
   }
 
   return (
@@ -29,11 +30,14 @@ export const Slider: FC<Props> = (props) => {
           min={q.min}
           max={q.max}
           step={q.step}
-          value={value}
+          defaultValue={value}
           className='slider-input'
           onChange={(e) => {
             setValue(parseInt(e.target.value));
-            console.log(getLabel(value));
+            onChange &&
+              onChange({
+                [q.id]: parseInt(e.target.value),
+              });
           }}
         />
       </div>
