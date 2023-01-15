@@ -16,6 +16,12 @@ export interface selectedValuesType {
   [key: string]: string | Set<string> | string[] | number;
 }
 
+
+export interface Progress {
+  active: number;
+  total: number;
+}
+
 export interface inputType {
   [key: string]: string;
 }

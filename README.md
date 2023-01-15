@@ -1,4 +1,4 @@
-## Survey Creator
+## Survey Maker
 
 A Web app to create and share survey. Support creating the following question types:
 

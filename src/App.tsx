@@ -33,16 +33,6 @@ const App: FC<Props> = () => (
           />
         </Route>
         <Route
-          path='/game'
-          element={
-            null
-            // <FillInTheBlank q={fillInTheBlankQ} />
-            // <Slider q={sliderQ} />
-            // <Choice q={choiceQ} />
-            //   <Swiper q={swiperQ} />
-          }
-        />
-        <Route
           path='/result'
           element={<Result />}
         />

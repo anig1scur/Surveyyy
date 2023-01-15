@@ -1,0 +1,62 @@
+.swirly-progress {
+  --progress: 0.1;
+
+  background-color: white;
+  margin: 0;
+  overflow: hidden;
+  margin: 5px;
+
+  @keyframes roll {
+    from {
+      transform: translateX(0) rotate(0deg);
+    }
+    to {
+      transform: translateX(calc(var(--progress) * 1000px)) rotate(calc(8turn * (var(--progress))));
+    }
+  }
+
+  .circle {
+    position: relative;
+    width: calc(40px * var(--progress));
+    height: calc(40px * var(--progress));
+
+    max-width: 40px;
+    max-height: 40px;
+
+    min-width: 10px;
+    min-height: 10px;
+
+    animation: roll 10s linear 500ms 1 forwards;
+    animation-play-state: paused;
+
+    &.playing {
+      animation-play-state: running;
+    }
+  }
+  div {
+    width: calc(80px * var(--progress));
+    height: calc(80px * var(--progress));
+    animation: spin 10s linear infinite;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+    background-color: transparent;
+    left: 2px;
+    top: 2px;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    25% {
+      transform: rotate(180deg);
+    }
+    50% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

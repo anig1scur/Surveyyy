@@ -1,10 +1,11 @@
-import React, { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { Survey as SurveyType, Question, Q, P, QuestionType, S } from '../../common/types';
+import { FC, useContext, useLayoutEffect, useState } from 'react';
+import { Survey as SurveyType, Question, Q, P, S, QuestionType } from '../../common/types';
 import Air from '@/assets/air2.png';
 import Back from '@/assets/back-arrow.svg';
 import { Choice, FillInTheBlank, Slider, Swiper } from '../../components/Q';
 import { StoredContext } from '../../context';
 import { Page } from '../../components/P/Page';
+import SwirlyProgress from '../../components/Progress/Spiral';
 
 const QcomponentMap = {
   [QuestionType.choice]: Choice,
@@ -80,7 +81,7 @@ const Foot: FC<FootProps> = (props) => {
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
 
-  const { skipped, form, setForm } = useContext(StoredContext);
+  const { skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
   const questions = survey.sections;
@@ -95,6 +96,10 @@ const Survey: FC<Props> = (props) => {
   };
 
   useLayoutEffect(() => {
+    setProgress({
+      active: activeIdx,
+      total: survey.sections.length,
+    });
     // union all skipped question by skipped values
     const skippedQs = new Set(
       Object.values(skipped).reduce((acc, cur) => {
@@ -149,6 +154,8 @@ const Survey: FC<Props> = (props) => {
         total={survey.sections.length}
         onGoBack={onGoBack}
       />
+      <SwirlyProgress />
+
       <div className='flex flex-col items-center'>
         {renderS(survey.sections[activeIdx])}
         <button onClick={onGoNext}>next</button>

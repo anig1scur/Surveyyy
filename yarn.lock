@@ -3110,6 +3110,11 @@
   resolved "https://registry.npmmirror.com/@types/prettier/-/prettier-2.7.2.tgz#6c2324641cc4ba050a8c710b2b251b377581fbf0"
   integrity sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==
 
+"@types/progressbar.js@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmmirror.com/@types/progressbar.js/-/progressbar.js-1.1.2.tgz#6d4f72af305bd1215ccbd62bc80a4ed79d346060"
+  integrity sha512-duYBKZ6aRWrJm1rt6HMaS8SYIpOUkstVuGpbIIOAI1UpkOhdOIsptHJxvLxUDYDVnfcapn1bN2mxRMwjAMcvsw==
+
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
@@ -9534,6 +9539,13 @@ process@^0.11.1, process@^0.11.10:
   resolved "https://registry.npmmirror.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==
 
+progressbar.js@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/progressbar.js/-/progressbar.js-1.1.0.tgz#300f99be40ba93fb0867f91dff01771236cade70"
+  integrity sha512-K68/xcyXKo2I6T3PfIkXrRaycxROmWeU4bugb49iulWR25cU94PM0cfZ47S0jDhG5K3vPhZwCOy1fgb5Pgh6UQ==
+  dependencies:
+    shifty "^2.1.2"
+
 promise@^8.1.0:
   version "8.3.0"
   resolved "https://registry.npmmirror.com/promise/-/promise-8.3.0.tgz#8cb333d1edeb61ef23869fbb8a4ea0279ab60e0a"
@@ -10372,6 +10384,13 @@ shell-quote@^1.7.3:
   version "1.7.4"
   resolved "https://registry.npmmirror.com/shell-quote/-/shell-quote-1.7.4.tgz#33fe15dee71ab2a81fcbd3a52106c5cfb9fb75d8"
   integrity sha512-8o/QEhSSRb1a5i7TFR0iM4G16Z0vYB2OQVs4G3aAFXjn3T6yEx8AZxy1PgDF7I00LZHYA3WxaSYIf5e5sAX8Rw==
+
+shifty@^2.1.2:
+  version "2.20.0"
+  resolved "https://registry.npmmirror.com/shifty/-/shifty-2.20.0.tgz#65dca412eea914e1a2c0d8268e49448035a311b5"
+  integrity sha512-1XEGiYWC1Z/lVYWHvTmWXR6/x3VkN4Ocucqulmm2/rHx3zVJpD8SIhab5h7nd3bwysH+OBgE+nCE4ljVudfxtw==
+  optionalDependencies:
+    fsevents "^2.3.2"
 
 side-channel@^1.0.4:
   version "1.0.4"
