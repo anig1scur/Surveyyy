@@ -84,6 +84,7 @@ const Survey: FC<Props> = (props) => {
   const { skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
+  const [skippedQs, setSkippedQs] = useState<Set<string>>(new Set());
   const questions = survey.sections;
 
   const onGoBack = () => {
@@ -101,13 +102,14 @@ const Survey: FC<Props> = (props) => {
       total: survey.sections.length,
     });
     // union all skipped question by skipped values
-    const skippedQs = new Set(
+    let skipped_ = new Set(
       Object.values(skipped).reduce((acc, cur) => {
         return [...acc, ...cur];
       }, [] as string[])
     );
+    setSkippedQs(skipped_);
 
-    if (skippedQs.has(questions[activeIdx].id)) {
+    if (skipped_.has(questions[activeIdx].id)) {
       if (lastChoice === ActionType.back) {
         onGoBack();
       } else {
@@ -117,10 +119,12 @@ const Survey: FC<Props> = (props) => {
   }, [activeIdx]);
 
   const renderS = (section: S) => {
-    if (section.type in QcomponentMap) {
-      return renderQ(section as Q);
-    } else {
-      return renderP(section as P);
+    if (!skippedQs.has(section.id)) {
+      if (section.type in QcomponentMap) {
+        return renderQ(section as Q);
+      } else {
+        return renderP(section as P);
+      }
     }
   };
 
@@ -132,6 +136,7 @@ const Survey: FC<Props> = (props) => {
     return (
       <Component
         // TODO: fixme
+        // @ts-ignore
         q={question}
         key={question.id}
         onChange={(data) =>
@@ -146,21 +151,18 @@ const Survey: FC<Props> = (props) => {
     );
   };
 
-  const progress = (activeIdx / survey.sections.length) * 100;
   return (
-    <div className='w-screen max-w-[48em] survey'>
+    <div className='survey'>
       <Header
         active={activeIdx}
         total={survey.sections.length}
         onGoBack={onGoBack}
       />
       <SwirlyProgress />
-
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col items-center m-5'>
         {renderS(survey.sections[activeIdx])}
         <button onClick={onGoNext}>next</button>
       </div>
-      <Foot progress={progress} />
     </div>
   );
 };

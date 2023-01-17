@@ -47,7 +47,7 @@ export const Swiper: FC<Props> = (props) => {
   }, [lastChoice.selectedValues]);
 
   return (
-    <div>
+    <div className='cards-wrapper'>
       <div
         className={classNames('cards', className)}
         style={style}>

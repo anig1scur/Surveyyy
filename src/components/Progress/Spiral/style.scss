@@ -1,5 +1,17 @@
-.spiral {
-  margin: 20px;
-  width: 100px;
-  height: 100px;
+.spiral-container {
+  overflow-x: hidden;
+  margin: auto;
+  display: flex;
+  border: 1px solid rebeccapurple;
+  height: max(32px, 6vh);
+  width: 70vw;
+  justify-content: center;
+  align-items: center;
+
+  .spiral {
+    transform: translateX(calc(var(--progress) * 25vw));
+    transition: all 2s ease-in-out;
+    width: 100%;
+    height: 100%;
+  }
 }

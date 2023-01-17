@@ -133,57 +133,58 @@ export const SurveyMock: Survey = {
             {
               value: 'B',
               text: 'no',
+              skip: new Set(['iouoiu', 'swiper-aa', '1234', 'sdfgdf']),
             },
           ],
         },
-        // {
-        //   id: '9999',
-        //   allowCustom: true,
-        //   allowMultiple: true,
-        //   type: QuestionType.choice,
-        //   title: 'Which part of this open call you didn’t like?',
-        //   options: [
-        //     {
-        //       value: 'A',
-        //       text: 'A. Process-oriented work',
-        //     },
-        //     {
-        //       value: 'B',
-        //       text: 'B. Research topic',
-        //     },
-        //     {
-        //       value: 'C',
-        //       text: 'C. Presentation format',
-        //     },
-        //     {
-        //       value: 'D',
-        //       text: 'D. Rural locations',
-        //     },
-        //     {
-        //       value: 'E',
-        //       text: 'E. Accommodation',
-        //     },
-        //     {
-        //       value: 'F',
-        //       text: 'F. The group size (4 people)',
-        //     },
-        //     {
-        //       value: 'G',
-        //       text: 'G. Payment',
-        //     },
-        //     {
-        //       value: 'H',
-        //       text: 'H. Duration of stay',
-        //     },
-        //   ],
-        // },
-        // {
-        //   id: '99999',
-        //   type: 'page',
-        //   title: 'Thank you for your participation!',
-        //   redirectUri: 'https://flausenpluscommunity.padlet.org/global/Chemnitz2022',
-        //   redirectDelay: 4,
-        // },
+        {
+          id: '9999',
+          allowCustom: true,
+          allowMultiple: true,
+          type: QuestionType.choice,
+          title: 'Which part of this open call you didn’t like?',
+          options: [
+            {
+              value: 'A',
+              text: 'A. Process-oriented work',
+            },
+            {
+              value: 'B',
+              text: 'B. Research topic',
+            },
+            {
+              value: 'C',
+              text: 'C. Presentation format',
+            },
+            {
+              value: 'D',
+              text: 'D. Rural locations',
+            },
+            {
+              value: 'E',
+              text: 'E. Accommodation',
+            },
+            {
+              value: 'F',
+              text: 'F. The group size (4 people)',
+            },
+            {
+              value: 'G',
+              text: 'G. Payment',
+            },
+            {
+              value: 'H',
+              text: 'H. Duration of stay',
+            },
+          ],
+        },
+        {
+          id: '99999',
+          type: 'page',
+          title: 'Thank you for your participation!',
+          redirectUri: 'https://flausenpluscommunity.padlet.org/global/Chemnitz2022',
+          redirectDelay: 4,
+        },
     {
       id: 'iouoiu',
       type: QuestionType.choice,

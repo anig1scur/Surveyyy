@@ -1,5 +1,4 @@
 .choice {
-  color: rgb(197, 40, 40);
   .radio-group {
     display: flex;
     flex-direction: column;
@@ -24,7 +23,6 @@
         display: none;
       }
       &.selected {
-        background-color: #ba5252;
         color: #333;
         .confirm {
           display: block;
@@ -32,17 +30,10 @@
       }
     }
   }
-
-  .checkbox-group {
-  }
   .custom-choice {
     &.selected {
       background-color: #f5f5f5;
       color: #333;
-    }
-    .input {
-      color: #ba5252;
-      background-color: #ba5252;
     }
     cursor: pointer;
     &:focus {

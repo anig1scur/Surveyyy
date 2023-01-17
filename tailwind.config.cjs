@@ -16,7 +16,6 @@ module.exports = {
     },
   },
   plugins: [
-    require('daisyui'),
     require('tailwindcss-filters'),
     require('@kamona/tailwindcss-perspective'),
   ],
