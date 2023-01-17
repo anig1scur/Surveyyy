@@ -1,5 +1,5 @@
 .spiral-container {
-  overflow-x: hidden;
+  overflow: hidden;
   margin: auto;
   display: flex;
   border: 1px solid rebeccapurple;
@@ -10,7 +10,7 @@
 
   .spiral {
     transform: translateX(calc(var(--progress) * 25vw));
-    transition: all 2s ease-in-out;
+    transition: all 4s ease-out;
     width: 100%;
     height: 100%;
   }

@@ -47,10 +47,8 @@ export const Swiper: FC<Props> = (props) => {
   }, [lastChoice.selectedValues]);
 
   return (
-    <div className='cards-wrapper'>
-      <div
-        className={classNames('cards', className)}
-        style={style}>
+    <div className={classNames('swiper', className)}  style={style}>
+      <div className='cards'>
         {q.cards.map((card, index) => (
           <Card
             cardLength={q.cards.length}
