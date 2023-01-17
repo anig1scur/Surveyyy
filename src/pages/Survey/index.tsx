@@ -35,7 +35,8 @@ const Header: FC<HeaderProps> = (props) => {
     <div
       className='bg-white mt-3 mx-5
     flex rounded-lg flex-row justify-between
-    items-center shadow-md text-gray-500 text-xl font-[400]'>
+    items-center shadow-md text-gray-500 text-xl font-[400]
+    sticky top-0 z-1'>
       <img
         src={Back}
         onClick={() => {

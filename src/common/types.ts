@@ -42,7 +42,7 @@ export type Attachment = {
 };
 
 export type Option = {
-  text: string;
+  label: string;
   value: string;
   attachment?: Attachment;
   skip?: Set<string>;
@@ -87,6 +87,7 @@ export type ChoiceQ = Question & {
   // allowMultiple === true ? checkbox:radio
   allowCustom: boolean;
   // allowCustom === true -> allow user to input custom option
+  customOptionLabel?: string;
 };
 
 export type rangeItem = [number, string];

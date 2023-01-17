@@ -55,14 +55,18 @@ export const Choice: FC<Props> = (props) => {
       style={style}
       className={classnames('choice', className)}>
       <div className='title'>{choiceQ.title}</div>
-      {single ? (
-        <div className='radio-group'>
-          {choiceQ.options.map((option) => (
-            <div
-              className='radio-option'
-              key={option.value}>
+      <div className='options'>
+        {choiceQ.options.map((option) => (
+          <div
+            className={classnames('option', {
+              selected: selectedValues.has(option.value),
+            })}
+            key={option.value}>
+            {/* <span className={classnames('label', { selected: selectedValues.has(option.value) })}>{option.label}</span> */}
+            {single ? (
               <input
                 type='radio'
+                className='check'
                 name='choice'
                 value={option.value}
                 checked={selectedValues.has(option.value)}
@@ -78,19 +82,10 @@ export const Choice: FC<Props> = (props) => {
                   }
                 }}
               />
-              <span>{option.text}</span>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className='checkbox-group'>
-          {choiceQ.options.map((option) => (
-            <div
-              className='checkbox-option'
-              key={option.value}>
+            ) : (
               <input
                 type='checkbox'
-                name='choice'
+                className='check'
                 value={option.value}
                 checked={selectedValues.has(option.value)}
                 onChange={(e) => {
@@ -114,38 +109,50 @@ export const Choice: FC<Props> = (props) => {
                   onChange && onChange({ [q.id]: newSet });
                 }}
               />
-              <span>{option.text}</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {choiceQ.allowCustom && (
-        <div
-          className={classnames('custom-choice', { selected: selectedValues.has(customValue) })}
-          onClick={() => {
-            setDisplayCustomInput(true);
-          }}>
-          {!displayCustomInput ? <span>{customValue ? customValue : 'Other'}</span> : null}
-          {displayCustomInput && (
-            <div className='input'>
-              <input
-                ref={ref}
-                autoFocus
-                type='text'
-                placeholder='Enter your choice'
-                defaultValue={customValue}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    updateSelectedValues();
-                  }
-                }}
-                onBlur={updateSelectedValues}
-              />
-              <button className='confirm'>confirm</button>
-            </div>
-          )}
-        </div>
-      )}
+            )}
+            <svg width="36" height="36" viewBox="0 0 100 100">
+              <rect x="12" y="12" width="75" height="75" stroke="#e3e3e3" fill="none" />
+              <g transform="translate(0,-952.3622)">
+                <path style={{
+                  strokeWidth: 4,
+                }} d="m 21,972 c -2,53 10,38 56,38 -3,-8 -7,-15 -14,-21 2,5 15,18 15,22 0,0.11 -2,-0.15 -2,0 -1,1 -2,1 -4,2 -4,2 -10,8 -12,10 " stroke="black" fill="none" stroke-width="3" className="path" />
+              </g>
+            </svg>
+            <span> {option.value}</span>
+          </div>
+        ))}
+        {choiceQ.allowCustom && (
+          <div
+            className={classnames('option', 'custom', { selected: selectedValues.has(customValue) })}
+            onClick={() => {
+              setDisplayCustomInput(true);
+            }}>
+            {!displayCustomInput ? (
+              <div><span>{choiceQ.customOptionLabel ? choiceQ.customOptionLabel : '？'}</span>
+
+              <span>{customValue}</span>
+              </div>
+            ) : (
+              <div className='input'>
+                <input
+                  ref={ref}
+                  autoFocus
+                  type='text'
+                  placeholder='Enter your choice'
+                  defaultValue={customValue}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      updateSelectedValues();
+                    }
+                  }}
+                  onBlur={updateSelectedValues}
+                />
+                <button className='confirm'>confirm</button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
