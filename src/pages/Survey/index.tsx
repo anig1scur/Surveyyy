@@ -159,7 +159,7 @@ const Survey: FC<Props> = (props) => {
         onGoBack={onGoBack}
       />
       <SwirlyProgress />
-      <div className='flex flex-col items-center m-5'>
+      <div className='flex flex-col items-center mx-5'>
         {renderS(survey.sections[activeIdx])}
         <button onClick={onGoNext}>next</button>
       </div>

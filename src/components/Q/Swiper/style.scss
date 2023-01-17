@@ -1,42 +1,42 @@
 .swiper {
   display: flex;
-  width: calc(min(90vw, 500px));
+  width: 100vw;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow-x: hidden;
-  border: solid 1px #e95c56;
   user-select: none;
 
   .cards {
+    margin-bottom: 20px;
     display: flex;
-    width: 80vw;
     position: relative;
-    height: 65vh;
+    width: 90vw;
+    height: 60vh;
+    justify-content: center;
     .card {
       &-container {
-        height: 60vh;
-        border: solid 1px blue;
         cursor: grab;
         position: absolute;
-        width: 80vw;
+        height: 55vh;
+        width: 85vw;
         max-height: 360px;
+        max-width: 500px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
       &-image {
+        overflow: hidden;
         background-color: white;
         background-size: auto 85%;
         background-repeat: no-repeat;
         background-position: top center;
-        width: 90%;
-        max-width: 400px;
         overflow-x: hidden;
+        width: 90%;
         height: 90%;
-        max-height: 570px;
-        border: 10px solid #fff;
+        padding: 6px;
         border-radius: 10px;
         box-shadow: 0 3px 30px -10px rgba(0, 0, 0, 0.2), 0 10px 10px -10px rgba(50, 50, 73, 0.3);
       }
@@ -48,7 +48,6 @@
         bottom: 20px;
         font-size: 1.6rem;
         text-overflow: ellipsis;
-        width: 50vh;
         white-space: nowrap;
         overflow: hidden;
         max-width: 300px;
@@ -84,10 +83,7 @@
   }
 
   .buttons {
-    width: 320px;
-    margin: auto;
     display: flex;
-    align-items: center;
     justify-content: center;
 
     &.button {

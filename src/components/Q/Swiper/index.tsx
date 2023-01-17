@@ -1,4 +1,4 @@
-// https://github.com/3DJakob/react-tinder-card
+// https://github.com/ahalimkara/react-tinder-cards
 
 import { FC, useEffect } from 'react';
 import classNames from 'classnames';
