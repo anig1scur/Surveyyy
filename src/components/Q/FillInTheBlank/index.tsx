@@ -25,7 +25,7 @@ export const FillInTheBlank: FC<Props> = (props) => {
   const config = q.config;
 
   const { form } = useContext(StoredContext);
-  const selectedValues: selectedValuesType = form;
+  const selectedValues: selectedValuesType = form[q.id] as selectedValuesType || {};
 
   const [fillInTheBlankConfig, setFillInTheBlankConfig] = useState<FillInBlankConfig>([]);
 
@@ -74,7 +74,7 @@ export const FillInTheBlank: FC<Props> = (props) => {
                       e.currentTarget.parentElement?.parentElement?.classList.add('selected');
                       e.currentTarget.parentElement?.classList.add('hide');
                       selectedValues[item.id] = option;
-                      onChange && onChange(selectedValues);
+                      onChange && onChange({[q.id]: selectedValues});
                     }}>
                     {option}
                   </div>

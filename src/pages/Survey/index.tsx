@@ -1,4 +1,4 @@
-import { FC, useContext, useLayoutEffect, useState } from 'react';
+import { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { Survey as SurveyType, Question, Q, P, S, QuestionType } from '../../common/types';
 import Air from '@/assets/air-black.png';
 import Back from '@/assets/back-arrow.svg';

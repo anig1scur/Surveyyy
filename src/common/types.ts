@@ -13,9 +13,8 @@ export enum QuestionType {
 }
 
 export interface selectedValuesType {
-  [key: string]: string | Set<string> | string[] | number;
-}
-
+  [key: string]: number | string | Set<string> | string[] | selectedValuesType
+};
 
 export interface Progress {
   active: number;

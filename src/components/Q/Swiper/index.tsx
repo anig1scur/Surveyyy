@@ -43,7 +43,7 @@ export const Swiper: FC<Props> = (props) => {
       prev[q.cards[parseInt(key)].id] = value;
       return prev;
     }, {});
-    onChange && onChange(values);
+    onChange && onChange({[q.id]: values});
   }, [lastChoice.selectedValues]);
 
   return (
