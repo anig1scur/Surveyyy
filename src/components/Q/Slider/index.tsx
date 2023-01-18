@@ -24,7 +24,6 @@ export const Slider: FC<Props> = (props) => {
       style={style}
       className={classnames('slider', className)}>
       <div className='title'>{q.title}</div>
-      <div className='slider-wrap'>
         <input
           type='range'
           min={q.min}
@@ -40,7 +39,6 @@ export const Slider: FC<Props> = (props) => {
               });
           }}
         />
-      </div>
       <div className='slider-label'>{q.valueType === valueType.number ? value : getLabel(value)}</div>
     </div>
   );

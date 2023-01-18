@@ -7,7 +7,7 @@ interface CollectionModel extends mongoose.Model<CollectionDocument> {
   build(attrs: CollectionType): CollectionDocument;
 }
 
-const sectionSchema = new mongoose.Schema({
+const collectionSchema = new mongoose.Schema({
   surveyId: {
     type: String,
     required: true,
@@ -22,10 +22,10 @@ const sectionSchema = new mongoose.Schema({
   },
 });
 
-sectionSchema.static('build', function (attrs: CollectionType) {
+collectionSchema.static('build', function (attrs: CollectionType) {
   return new Collection(attrs);
 });
 
-const Collection = mongoose.model<CollectionDocument, CollectionModel>('Collection', sectionSchema);
+const Collection = mongoose.model<CollectionDocument, CollectionModel>('Collection', collectionSchema);
 
 export { Collection };

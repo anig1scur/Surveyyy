@@ -81,7 +81,6 @@ const Foot: FC<FootProps> = (props) => {
 
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
-  console.log(JSON.stringify(survey));
 
   const { skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
