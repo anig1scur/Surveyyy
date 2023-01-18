@@ -1,23 +1,63 @@
 /*
-  single or multiple Choice allowing custom input
+  single or multiple Choice allowing custom input option
 
-  UI depeneds on the following states:
+  depeneds on the following states:
 
   1. whether custom value empty
   2. whether custom input focused
   3. whether custom choice selected
-  4. if choice be clicked and value not empty, recognize the value selected by user
+  4. if custom input was clicked and the value wasn't empty, consider it be selected.
   */
 
 import './style.scss';
 import { FC, useRef, useState, useContext } from 'react';
 import classnames from 'classnames';
-import { ChoiceQ, BaseComponentProps } from '../../../common/types';
+import { ChoiceQ, BaseComponentProps, Option as OptionType } from '../../../common/types';
 import { StoredContext } from '../../../context';
 
 export type Props = BaseComponentProps & {
   q: ChoiceQ;
   onChange?: (values: { [key: string]: Set<string> }) => void;
+};
+
+export type OptionProps = {
+  option: OptionType;
+  selected: boolean;
+};
+
+const Option: FC<OptionProps> = (props) => {
+  const { option, selected  } = props;
+  return (
+    <>
+      <svg
+        width='36'
+        height='36'
+        viewBox='0 0 100 100'>
+        <rect
+          x='12'
+          y='12'
+          width='75'
+          height='75'
+          stroke='#e3e3e3'
+          fill='none'
+        />
+        <g transform='translate(0,-952.3622)'>
+          <path
+            d='m 21,972 c -2,53 10,38 56,38 -3,-8 -7,-15 -14,-21 2,5 15,18 15,22 0,0.11 -2,-0.15 -2,0 -1,1 -2,1 -4,2 -4,2 -10,8 -12,10 '
+            stroke='black'
+            fill='none'
+            strokeWidth='3'
+            className={
+              classnames('path', {
+                'selected': selected,
+              })
+            }
+          />
+        </g>
+      </svg>
+      <span> {option.value} </span>
+    </>
+  );
 };
 
 export const Choice: FC<Props> = (props) => {
@@ -58,9 +98,7 @@ export const Choice: FC<Props> = (props) => {
       <div className='options'>
         {choiceQ.options.map((option) => (
           <div
-            className={classnames('option', {
-              selected: selectedValues.has(option.value),
-            })}
+            className={classnames('option')}
             key={option.value}>
             {/* <span className={classnames('label', { selected: selectedValues.has(option.value) })}>{option.label}</span> */}
             {single ? (
@@ -110,30 +148,28 @@ export const Choice: FC<Props> = (props) => {
                 }}
               />
             )}
-            <svg width="36" height="36" viewBox="0 0 100 100">
-              <rect x="12" y="12" width="75" height="75" stroke="#e3e3e3" fill="none" />
-              <g transform="translate(0,-952.3622)">
-                <path style={{
-                  strokeWidth: 4,
-                }} d="m 21,972 c -2,53 10,38 56,38 -3,-8 -7,-15 -14,-21 2,5 15,18 15,22 0,0.11 -2,-0.15 -2,0 -1,1 -2,1 -4,2 -4,2 -10,8 -12,10 " stroke="black" fill="none" strokeWidth="3" className="path" />
-              </g>
-            </svg>
-            <span> {option.value}</span>
+            <Option
+              option={option}
+              key={option.value}
+              selected={selectedValues.has(option.value)}
+            />
           </div>
         ))}
         {choiceQ.allowCustom && (
           <div
-            className={classnames('option', 'custom', { selected: selectedValues.has(customValue) })}
+            className={classnames('option')}
             onClick={() => {
               setDisplayCustomInput(true);
             }}>
-            {!displayCustomInput ? (
-              <div><span>{choiceQ.customOptionLabel ? choiceQ.customOptionLabel : '？'}</span>
-
-              <span>{customValue}</span>
-              </div>
-            ) : (
-              <div className='input'>
+            <Option
+              selected={selectedValues.has(customValue)}
+              option={{
+                value: displayCustomInput ? '' : customValue || 'Other',
+                label: choiceQ.customOptionLabel || 'Other',
+              }}
+            />
+            {displayCustomInput ? (
+              <span className='input'>
                 <input
                   ref={ref}
                   autoFocus
@@ -148,8 +184,8 @@ export const Choice: FC<Props> = (props) => {
                   onBlur={updateSelectedValues}
                 />
                 <button className='confirm'>confirm</button>
-              </div>
-            )}
+              </span>
+            ) : null}
           </div>
         )}
       </div>

@@ -35,7 +35,7 @@ export const SpiralProgress: FC<Props> = (props) => {
       setAnimationPlayState('paused');
     }, 1000);
 
-    const alpha = progress.active > 5 ? 0.4 : 0.6;
+    const alpha = progress.active > 5 ? 0.2 : 0.6;
 
     if (bar) {
       bar.animate(Math.min(1, 0.68 + ((progress.active * alpha) / progress.total || 0.1)));
@@ -45,7 +45,7 @@ export const SpiralProgress: FC<Props> = (props) => {
   return (
     <div
       className={classNames('spiral-container')}
-      style={{ '--progress': curProgress.active / curProgress.total || 0.1 } as React.CSSProperties}>
+      style={{ '--progress': curProgress.active * (curProgress.active > 5 ? 0.5 : 0.9) / curProgress.total || 0.1 } as React.CSSProperties}>
       <div
         className={classNames('spiral')}
         style={{

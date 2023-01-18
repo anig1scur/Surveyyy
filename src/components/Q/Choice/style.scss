@@ -21,24 +21,11 @@
         stroke-dasharray: 1800;
         stroke-dashoffset: 1800;
         transition: 0.5s all;
-      }
-      .check:checked + svg g path {
-        stroke-dashoffset: 0;
+        &.selected {
+          stroke-dashoffset: 0;
+        }
       }
     }
 
-    .custom {
-      &.selected {
-        background-color: rebeccapurple;
-        color: white;
-      }
-      cursor: pointer;
-      &:focus {
-        color: #333;
-        outline: none;
-      }
-      .confirm {
-      }
-    }
   }
 }

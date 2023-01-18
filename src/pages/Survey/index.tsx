@@ -34,10 +34,10 @@ const Header: FC<HeaderProps> = (props) => {
   return (
     <div
       className='bg-white mt-3 mx-5
-    flex rounded-lg flex-row justify-between
+    flex rounded-lg justify-between max-w-2xl w-[90vw]
     items-center shadow-md text-gray-500 text-xl font-[400]
     sticky top-0 z-1'>
-      <img
+      {/* <img
         src={Back}
         onClick={() => {
           if (active > 0) {
@@ -45,11 +45,12 @@ const Header: FC<HeaderProps> = (props) => {
           }
         }}
         className='max-h-10 mx-2'
-      />
-      <div className='text-xl text-stone-500'>
+      /> */}
+      <SwirlyProgress />
+      {/* <div className='text-xl text-stone-500'>
         <span>{active + 1}</span>
         <span> / {total}</span>
-      </div>
+      </div> */}
       <img
         className='max-h-14 mr-2 object-cover'
         src={Air}
@@ -100,7 +101,7 @@ const Survey: FC<Props> = (props) => {
   useLayoutEffect(() => {
     setProgress({
       active: activeIdx,
-      total: survey.sections.length,
+      total: survey.sections.length - skippedQs.size,
     });
     // union all skipped question by skipped values
     let skipped_ = new Set(
@@ -153,13 +154,12 @@ const Survey: FC<Props> = (props) => {
   };
 
   return (
-    <div className='survey'>
+    <div className='survey flex items-center flex-col'>
       <Header
         active={activeIdx}
         total={survey.sections.length}
         onGoBack={onGoBack}
       />
-      <SwirlyProgress />
       <div className='flex flex-col items-center mx-5'>
         {renderS(survey.sections[activeIdx])}
         <button onClick={onGoNext}>next</button>

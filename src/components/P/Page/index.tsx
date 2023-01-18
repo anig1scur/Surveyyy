@@ -5,7 +5,7 @@ import { PadletBox } from '../Padlet';
 
 export type Props = BaseComponentProps & {
   iframeSrc?: string;
-  title: string;
+  title?: string;
   redirectUri?: string;
   redirectDelay?: number;
 };
