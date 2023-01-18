@@ -1,24 +1,24 @@
 ## Surveyyy
 
-A Web app to create and share survey. Support creating the following question types:
+A Web app to create and collect survey, with data analysis admin panel.
 
-1. slider
-2. choice (multi / single, custom option)
-3. fill in the blank
-4. swiper (yes or no)
+Now it supports the following question types:
+
+1. Slider
+2. Choice (multi / single, supporting custom option)
+3. Fill in the blank
+4. Swiper (yes or no)
 
 ### TODO
 
-- backend
-
-  - [ ] Survey Model
-  - [ ] Submit API
-  - [ ] Admin panel
+- [ ] Survey Model
+- [ ] Submit API
+- [ ] Survey submit
+- [ ] Admin panel
+  - [ ] Accounts && Cookie/Token
+  - [ ] Survey Config
+    - [ ] visual
   - [ ] Data analysis
-
-- frontend
-  - [ ] Survey submit
-  - [ ] Admin panel
 
 ## Serverless Hosting
 

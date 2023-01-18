@@ -48,7 +48,6 @@ export const SurveyMock: Survey = {
         },
         {
           label: 'D',
-          skip: new Set(['1234']),
           value: 'D. Traveling to different places',
         },
       ],

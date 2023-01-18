@@ -1,6 +1,6 @@
 import { FC, useContext, useLayoutEffect, useState } from 'react';
 import { Survey as SurveyType, Question, Q, P, S, QuestionType } from '../../common/types';
-import Air from '@/assets/air2.png';
+import Air from '@/assets/air-black.png';
 import Back from '@/assets/back-arrow.svg';
 import { Choice, FillInTheBlank, Slider, Swiper } from '../../components/Q';
 import { StoredContext } from '../../context';
@@ -81,6 +81,7 @@ const Foot: FC<FootProps> = (props) => {
 
 const Survey: FC<Props> = (props) => {
   const { survey } = props;
+  console.log(JSON.stringify(survey));
 
   const { skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);

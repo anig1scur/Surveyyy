@@ -17,6 +17,6 @@
       "noEmit": true,
       "jsx": "react-jsx"
     },
-    "include": ["src", ".eslintrc.cjs", "env.d.ts", "vite.config.ts"],
+    "include": ["src", ".eslintrc.cjs", "env.d.ts", "vite.config.ts", "service/models", "service/utils.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
   }

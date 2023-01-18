@@ -48,11 +48,8 @@ export type Option = {
   skip?: Set<string>;
 };
 
-export type Question = {
-  id: string;
+export type Question = sectionBase & {
   type: QuestionType;
-  title?: string;
-  surveyId?: number;
   attachment?: Attachment;
   tip?: string;
 };
@@ -83,9 +80,9 @@ export type ChoiceQ = Question & {
   type: QuestionType.choice;
   options: Option[];
 
-  allowMultiple: boolean;
+  allowMultiple?: boolean;
   // allowMultiple === true ? checkbox:radio
-  allowCustom: boolean;
+  allowCustom?: boolean;
   // allowCustom === true -> allow user to input custom option
   customOptionLabel?: string;
 };
@@ -144,12 +141,17 @@ export type FillInBlankQ = Question & {
   config: FillInBlankConfig;
 };
 
+export type sectionBase = {
+  id: string;
+  title?: string;
+  type: string;
+  surveyIds?: string[];
+}
+
 export type Q = ChoiceQ | SliderQ | SwiperQ | FillInBlankQ;
 
-export type Page = {
+export type Page = sectionBase & {
   type: 'page';
-  id: string;
-  title: string;
   text?: string;
   iframeSrc?: string;
   redirectUri?: string;
@@ -158,3 +160,14 @@ export type Page = {
 
 export type P = Page ;
 export type S = Q | P;
+
+// 一份提交的答案
+export type Collection = {
+  id: string;
+  // We don't need user to login to submit a survey, so authorId is not required
+  // authorId: string; ?
+  // maybe ip addr ?
+  surveyId: string;
+  createdAt: Date;
+  answers: selectedValuesType;
+}
