@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { Collection as CollectionType } from '../../src/common/types';
+import { Collection as CollectionType } from '../../../src/common/types';
 
 export type CollectionDocument = CollectionType & Document;
 

@@ -38,7 +38,7 @@ const Option: FC<OptionProps> = (props) => {
           y='12'
           width='75'
           height='75'
-          stroke='#e3e3e3'
+          stroke='#e4e4e4'
           fill='none'
         />
         <g transform='translate(0,-952.3622)'>

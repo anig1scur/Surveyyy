@@ -99,6 +99,7 @@ export type SliderQ = Question & {
   max: number;
   step: number;
   value?: number;
+  // 左闭右开
   labelConfig: rangeItem[];
   valueType: valueType;
 };

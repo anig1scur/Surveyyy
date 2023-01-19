@@ -2,11 +2,11 @@ import { PayloadType, QuestionType, Page, Survey, fillInType, valueType } from '
 
 export const SurveyMock: Survey = {
   authorId: 'me',
-  title: 'mock 一个调查问卷',
-  id: '0',
+  title: 'mock kalsjdlaks',
+  id: 'poiqweopiop',
   sections: [
     {
-      id: '111',
+      id: 'asdsa',
       allowCustom: false,
       allowMultiple: true,
       type: QuestionType.choice,

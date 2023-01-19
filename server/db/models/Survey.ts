@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import { Survey as SurveyType } from '../../src/common/types';
+import { Survey as SurveyType } from '../../../src/common/types';
 
 export type SurveyDocument = Document & SurveyType;
 
@@ -7,7 +7,7 @@ export interface SurveyModel extends mongoose.Model<SurveyDocument> {
   build(attrs: SurveyType): SurveyDocument;
 }
 
-const surveySchema = new mongoose.Schema({
+const SurveySchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -22,18 +22,19 @@ const surveySchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    required: true,
+    default: Date.now,
   },
+  updatedAt: Date,
 });
 
-surveySchema.pre('save', async function () {
-  this.createdAt = new Date();
+SurveySchema.pre('save', async function (next) {
+  const now = new Date();
+  this.updatedAt = now;
+  next();
 });
 
-surveySchema.static('build', function (attrs: SurveyType) {
+SurveySchema.static('build', function (attrs: SurveyType) {
   return new Survey(attrs);
 });
 
-const Survey = mongoose.model<SurveyDocument, SurveyModel>('Survey', surveySchema);
-
-export { Survey };
+export const Survey: mongoose.Model<SurveyModel> = mongoose.model<SurveyModel>('Survey', SurveySchema, 'survey');

@@ -1,12 +1,13 @@
 // issue 1: properties we pass to User constructor aren't checked by TS
 // issue 2: properties avail on indiv. user doc may not match those passed to constructor
 import mongoose from 'mongoose';
-import { Password } from '../utils';
+import { Password } from '../../utils';
 
 // describes the properties required to create a new user: issue 1
 interface UserAttrs {
   email: string;
   password: string;
+  refreshTokensId: string
 }
 
 //describes the properties that a User Model has: issue 1
@@ -79,4 +80,7 @@ userSchema.static('build', function (attrs: UserAttrs) {
 // Now, User: UserModel, so we can use build method on it
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
+interface IRefreshTokens extends Document {
+  tokens: string[]
+}
 export { User };

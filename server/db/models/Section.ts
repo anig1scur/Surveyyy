@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { S } from '../../src/common/types';
+import { S } from '../../../src/common/types';
 
 export type SectionDocument = S & Document;
 
