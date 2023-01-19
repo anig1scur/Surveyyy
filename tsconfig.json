@@ -18,6 +18,5 @@
       "jsx": "react-jsx",
       "declaration": true
     },
-    "include": ["src", ".eslintrc.cjs", "env.d.ts", "vite.config.ts", "server/models", "server/utils/index.ts"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["src", ".eslintrc.cjs", "env.d.ts", "vite.config.ts", "server/models", "server/utils/index.ts"]
   }

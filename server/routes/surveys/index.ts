@@ -1,7 +1,7 @@
-import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyPluginOptions } from 'fastify';
 import { fastifyPlugin as fp } from 'fastify-plugin';
 
-export default fp(async (server: FastifyInstance, opts, next) => {
+export default fp(async (server: FastifyInstance, opts: FastifyPluginOptions, next: () => void) => {
   server.get('/api/surveys/:id', {}, async (request: FastifyRequest, reply: FastifyReply) => {
     try {
       // @ts-ignore
