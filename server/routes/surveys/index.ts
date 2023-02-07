@@ -2,7 +2,7 @@ import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyPluginOption
 import { fastifyPlugin as fp } from 'fastify-plugin';
 
 export default fp(async (server: FastifyInstance, opts: FastifyPluginOptions, next: () => void) => {
-  server.get('/api/surveys/:id', {}, async (request: FastifyRequest, reply: FastifyReply) => {
+  server.get('/surveys/:id', {}, async (request: FastifyRequest, reply: FastifyReply) => {
     try {
       // @ts-ignore
       const _id = request.params.id;
@@ -22,7 +22,7 @@ export default fp(async (server: FastifyInstance, opts: FastifyPluginOptions, ne
     }
   });
 
-  server.post('/api/surveys', {}, async (request: FastifyRequest, reply: FastifyReply) => {
+  server.post('/surveys', {}, async (request: FastifyRequest, reply: FastifyReply) => {
     try {
       const { Survey } = server.db.models;
       const survey = await Survey.create(request.body);

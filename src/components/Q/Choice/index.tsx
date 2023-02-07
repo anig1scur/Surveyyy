@@ -20,15 +20,17 @@ export type Props = BaseComponentProps & {
   onChange?: (values: { [key: string]: Set<string> }) => void;
 };
 
-export type OptionProps = {
+export type OptionProps = BaseComponentProps & {
   option: OptionType;
   selected: boolean;
 };
 
 const Option: FC<OptionProps> = (props) => {
-  const { option, selected  } = props;
+  const { option, selected, className, style } = props;
   return (
-    <>
+    <span
+      className={className}
+      style={style}>
       <svg
         width='36'
         height='36'
@@ -47,16 +49,14 @@ const Option: FC<OptionProps> = (props) => {
             stroke='black'
             fill='none'
             strokeWidth='3'
-            className={
-              classnames('path', {
-                'selected': selected,
-              })
-            }
+            className={classnames('path', {
+              selected: selected,
+            })}
           />
         </g>
       </svg>
       <span> {option.value} </span>
-    </>
+    </span>
   );
 };
 
@@ -162,6 +162,7 @@ export const Choice: FC<Props> = (props) => {
               setDisplayCustomInput(true);
             }}>
             <Option
+              style={{ cursor: 'pointer' }}
               selected={selectedValues.has(customValue)}
               option={{
                 value: displayCustomInput ? '' : customValue || 'Other',

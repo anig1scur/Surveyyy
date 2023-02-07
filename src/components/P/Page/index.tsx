@@ -1,7 +1,6 @@
 import './style.scss';
 import { FC, useLayoutEffect } from 'react';
 import { BaseComponentProps } from '../../../common/types';
-import { PadletBox } from '../Padlet';
 
 export type Props = BaseComponentProps & {
   iframeSrc?: string;
@@ -22,7 +21,14 @@ export const Page: FC<Props> = (props) => {
   return (
     <div>
       {title}
-      {iframeSrc ? <PadletBox url={iframeSrc} /> : null}
+      {iframeSrc ? (
+        <iframe
+          className='h-[68vh]'
+          src={iframeSrc}
+          allow='camera;microphone;geolocation'></iframe>
+      ) : null}
     </div>
   );
 };
+
+export default Page;

@@ -7,6 +7,13 @@
   overflow-x: hidden;
   user-select: none;
 
+  .title {
+    margin-top: 10px;
+    white-space: pre-wrap;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
   .cards {
     margin-bottom: 20px;
     display: flex;

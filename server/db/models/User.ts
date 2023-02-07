@@ -1,37 +1,30 @@
-// issue 1: properties we pass to User constructor aren't checked by TS
-// issue 2: properties avail on indiv. user doc may not match those passed to constructor
-import mongoose from 'mongoose';
-import { Password } from '../../utils';
+import mongoose, { Document } from 'mongoose';
+import { Password } from '../../utils/password';
+import { User as UserType } from '../../../src/common/types';
 
-// describes the properties required to create a new user: issue 1
-interface UserAttrs {
-  email: string;
-  password: string;
-  refreshTokensId: string
-}
+// describes the properties that a User Document has: solves issue 2
+export type UserDoc = Document & UserType;
 
 //describes the properties that a User Model has: issue 1
 // UserModel interface extends mongoose.Model, and represents a collection of UserDocs
-interface UserModel extends mongoose.Model<UserDoc> {
-  build(attrs: UserAttrs): UserDoc; // return value of build method must be type UserDoc
-}
-
-// describes the properties that a User Document has: solves issue 2
-interface UserDoc extends mongoose.Document {
-  email: string;
-  password: string;
-  // if we had extra properties that mongoose added, we'd list them here
+export interface UserModel extends mongoose.Model<UserDoc> {
+  build(attrs: UserType): UserDoc; // return value of build method must be type UserDoc
 }
 
 const userSchema = new mongoose.Schema(
   {
-    email: {
+    name: {
       type: String,
       required: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    avatar: String,
+    refreshTokensId: {
+      type: mongoose.Types.ObjectId,
+      ref: 'RefreshTokens',
     },
   },
   // second argument: options object of type mongoose.SchemaOptions
@@ -68,19 +61,16 @@ userSchema.pre('save', async function (done) {
   done();
 });
 
+
 // to create new user, call User.build(..) instead of default constructor new User(..)
 // allows TS to check the argument, as mongoose prevents TS from doing so
 // Must add build method to UserModel interface for TS to recognize it
-userSchema.static('build', function (attrs: UserAttrs) {
+userSchema.static('build', function (attrs: UserType) {
   return new User(attrs);
 });
 
 // mongoose creates a model out of schema. model is the CRUD interface to reach MongoDB
 // we give model constructor template vars UserDoc and UserModel, it returns type UserModel, which represents a collection of UserDocs
-// Now, User: UserModel, so we can use build method on it
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+// const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
-interface IRefreshTokens extends Document {
-  tokens: string[]
-}
-export { User };
+export const User: mongoose.Model<UserModel> = mongoose.model<UserModel>('User', userSchema, 'user');

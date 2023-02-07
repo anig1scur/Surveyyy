@@ -17,6 +17,7 @@ import { SwiperQ, BaseComponentProps, selectedValuesType } from '../../../common
 export type Props = BaseComponentProps & {
   q: SwiperQ;
   onChange?: (selectedValues: selectedValuesType) => void;
+  onGoNext?: () => void;
 };
 
 export const SwiperWrapper: FC<Props> = (props) => {
@@ -28,7 +29,7 @@ export const SwiperWrapper: FC<Props> = (props) => {
 };
 
 export const Swiper: FC<Props> = (props) => {
-  const { q, style, className, onChange } = props;
+  const { q, style, className, onChange, onGoNext } = props;
   const lastChoice = useSelector((state: RootState) => state.lastChoice);
 
   const dispatch = useDispatch();
@@ -43,11 +44,22 @@ export const Swiper: FC<Props> = (props) => {
       prev[q.cards[parseInt(key)].id] = value;
       return prev;
     }, {});
-    onChange && onChange({[q.id]: values});
+
+    onChange && onChange({ [q.id]: values });
+
+    // auto go next if all cards are swiped
+    if (lastChoice.type && lastChoice.currentCardIndex === 0) {
+      setTimeout(() => {
+        onGoNext && onGoNext();
+      }, 300);
+    }
   }, [lastChoice.selectedValues]);
 
   return (
-    <div className={classNames('swiper', className)}  style={style}>
+    <div
+      className={classNames('swiper', className)}
+      style={style}>
+      <div className='title'>{q.title}</div>
       <div className='cards'>
         {q.cards.map((card, index) => (
           <Card

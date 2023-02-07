@@ -1,10 +1,10 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import { Survey as SurveyType } from '../../../src/common/types';
 
-export type SurveyDocument = Document & SurveyType;
+export type SurveyDoc = Document & SurveyType;
 
-export interface SurveyModel extends mongoose.Model<SurveyDocument> {
-  build(attrs: SurveyType): SurveyDocument;
+export interface SurveyModel extends mongoose.Model<SurveyDoc> {
+  build(attrs: SurveyType): SurveyDoc;
 }
 
 const SurveySchema = new mongoose.Schema({

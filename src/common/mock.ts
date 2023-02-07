@@ -1,10 +1,16 @@
-import { PayloadType, QuestionType, Page, Survey, fillInType, valueType } from './types';
+import { QuestionType, Survey, fillInType, valueType } from './types';
 
 export const SurveyMock: Survey = {
   authorId: 'me',
   title: 'mock kalsjdlaks',
   id: 'poiqweopiop',
   sections: [
+    {
+      id: '99999',
+      type: 'intro',
+      title: 'Welcome balabala!',
+      text: 'This test takes about 8 minutes to complete.'
+    },
     {
       id: 'asdsa',
       allowCustom: false,
@@ -14,16 +20,16 @@ export const SurveyMock: Survey = {
       options: [
         {
           label: 'A',
-          value: 'A. Backstage (technician, designer, director, choreographer, composer, writer...)',
+          value: 'Backstage (technician, designer, director, choreographer, composer, writer...)',
           skip: new Set(['222']),
         },
         {
           label: 'B',
-          value: 'B. On stage (performer, dancer, musician, singer, comedian...)',
+          value: 'On stage (performer, dancer, musician, singer, comedian...)',
         },
         {
           label: 'C',
-          value: 'C. All around the production (producer, organizer, administrator, PR...)',
+          value: 'All around the production (producer, organizer, administrator, PR...)',
         },
       ],
     },
@@ -36,19 +42,19 @@ export const SurveyMock: Survey = {
       options: [
         {
           label: 'A',
-          value: 'A. Meeting people from different backgrounds',
+          value: 'Meeting people from different backgrounds',
         },
         {
           label: 'B',
-          value: 'B. Learning about different cultural, languages and artistic traditions',
+          value: 'Learning about different cultural, languages and artistic traditions',
         },
         {
           label: 'C',
-          value: 'C. Examining my own points of view and acquiring new perspectives',
+          value: 'Examining my own points of view and acquiring new perspectives',
         },
         {
           label: 'D',
-          value: 'D. Traveling to different places',
+          value: 'Traveling to different places',
         },
       ],
     },
@@ -58,7 +64,6 @@ export const SurveyMock: Survey = {
       title: 'How many years of experience do you have in working globally?',
       min: 0,
       max: 11,
-      step: 1,
       value: 50,
       valueType: valueType.string,
       labelConfig: [
@@ -85,16 +90,16 @@ export const SurveyMock: Survey = {
       options: [
         {
           label: 'A',
-          value: 'A. Financial and infrastructural support',
+          value: 'Financial and infrastructural support',
         },
         {
           label: 'B',
-          value: 'B. An Environment with unconditioned trust and calmness',
+          value: 'An Environment with unconditioned trust and calmness',
           skip: new Set(['sdfgdf', '1234']),
         },
         {
           label: 'C',
-          value: 'C. Collaborators who are open-minded and adventurous',
+          value: 'Collaborators who are open-minded and adventurous',
         },
       ],
     },
@@ -142,41 +147,41 @@ export const SurveyMock: Survey = {
       options: [
         {
           label: 'A',
-          value: 'A. Process-oriented work',
+          value: 'Process-oriented work',
         },
         {
           label: 'B',
-          value: 'B. Research topic',
+          value: 'Research topic',
         },
         {
           label: 'C',
-          value: 'C. Presentation format',
+          value: 'Presentation format',
         },
         {
           label: 'D',
-          value: 'D. Rural locations',
+          value: 'Rural locations',
         },
         {
           label: 'E',
-          value: 'E. Accommodation',
+          value: 'Accommodation',
         },
         {
           label: 'F',
-          value: 'F. The group size (4 people)',
+          value: 'The group size (4 people)',
         },
         {
           label: 'G',
-          value: 'G. Payment',
+          value: 'Payment',
         },
         {
           label: 'H',
-          value: 'H. Duration of stay',
+          value: 'Duration of stay',
         },
       ],
     },
     {
       id: '99999',
-      type: 'page',
+      type: 'normal',
       title: 'Thank you for your participation!',
       redirectUri: 'https://flausenpluscommunity.padlet.org/global/Chemnitz2022',
       redirectDelay: 4,
@@ -186,30 +191,23 @@ export const SurveyMock: Survey = {
       type: QuestionType.choice,
       allowMultiple: false,
       allowCustom: false,
-      title: `In the first week, the four of you spend much time exploring
-      the new city. In order to get in touch with local issues, which of
-      the following is a must-do?`,
-      // - Go through the historical materials the hosting theater
-      // provided
-      // - Consult local residents or organizations
-      // - Walk around the city
-      // - Discuss with your colleagues about potential topics
+      title: `In the first week, the four of you spend much time exploring the new city. In order to get in touch with local issues, which of the following is a must-do?`,
       options: [
         {
           label: 'A',
-          value: 'A. Go through the historical materials the hosting theater provided',
+          value: 'Go through the historical materials the hosting theater provided',
         },
         {
           label: 'B',
-          value: 'B. Consult local residents or organizations',
+          value: 'Consult local residents or organizations',
         },
         {
           label: 'C',
-          value: 'C. Walk around the city',
+          value: 'Walk around the city',
         },
         {
           label: 'D',
-          value: 'D. Discuss with your colleagues about potential topics',
+          value: 'Discuss with your colleagues about potential topics',
         },
       ],
     },
@@ -282,7 +280,7 @@ export const SurveyMock: Survey = {
           id: '123-4',
           type: fillInType.blank,
           text: ' one hour',
-          options: ['too short', 'too long'],
+          options: [' too short', ' too long'],
         },
         {
           text: '. During this hour, the visitors ',
@@ -356,7 +354,6 @@ export const SurveyMock: Survey = {
       title: 'Do you think you are a person who feels more comfortable to',
       min: 0,
       max: 1,
-      step: 1,
       valueType: valueType.string,
       labelConfig: [
         [
@@ -369,26 +366,6 @@ export const SurveyMock: Survey = {
           `mix private life and work, and social
         life and working relationships`,
         ],
-      ],
-    },
-    {
-      id: 'sdfgdf',
-      type: QuestionType.slider,
-      title: 'What is your favorite color?',
-      min: 1,
-      max: 100,
-      step: 3,
-      value: 50,
-      valueType: valueType.string,
-      labelConfig: [
-        [5, 'asd'],
-        [0, 'tyr'],
-        [10, 'ertr'],
-        [15, 'sdf'],
-        [25, 'oiuou'],
-        [30, 'kjhjk'],
-        [35, 'Yui'],
-        [100, 'cvbcvb'],
       ],
     },
   ],

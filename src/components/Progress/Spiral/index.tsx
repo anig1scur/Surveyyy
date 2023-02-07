@@ -13,7 +13,6 @@ export const SpiralProgress: FC<Props> = (props) => {
     active: 0,
     total: 0,
   });
-  const [animationPlayState, setAnimationPlayState] = useState<string>('paused');
   const [isGrow, setIsGrow] = useState<boolean>(false);
   // 这到底是个什么类型
   const [bar, setBar] = useState<any>();
@@ -21,31 +20,32 @@ export const SpiralProgress: FC<Props> = (props) => {
   useEffect(() => {
     let b = new ProgressBar.Path('#' + ref.current?.id, {
       easing: 'easeInOut',
-      duration: 4000,
+      duration: 3000,
     });
+
     setBar(b);
+
     b.animate(0.68);
   }, []);
 
-  useLayoutEffect(() => {
-    setIsGrow((curProgress.active / curProgress.total || 0) < progress.active / progress.total);
+  useEffect(() => {
+    setIsGrow(curProgress.active / curProgress.total < progress.active / progress.total);
     setCurProgress(progress);
-    setAnimationPlayState('running');
-    setTimeout(() => {
-      setAnimationPlayState('paused');
-    }, 1000);
-
-    const alpha = progress.active > 5 ? 0.2 : 0.6;
+    const alpha = progress.active > 5 ? 0.15 : 0.3;
 
     if (bar) {
-      bar.animate(Math.min(1, 0.68 + ((progress.active * alpha) / progress.total || 0.1)));
+      bar.animate(Math.min(1, 0.68 + ((progress.active * alpha) / progress.total || 0.05)));
     }
   }, [progress]);
 
   return (
     <div
       className={classNames('spiral-container')}
-      style={{ '--progress': curProgress.active * (curProgress.active > 5 ? 0.5 : 0.9) / curProgress.total || 0.1 } as React.CSSProperties}>
+      style={
+        {
+          '--progress': (curProgress.active * (curProgress.active > 5 ? 0.5 : 0.8)) / curProgress.total || 0.01,
+        } as React.CSSProperties
+      }>
       <div
         className={classNames('spiral')}
         style={{

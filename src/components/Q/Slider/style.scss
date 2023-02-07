@@ -1,3 +1,49 @@
 .slider {
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: min(540px, 90vw);
+
+  .title {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    white-space: pre-line;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &-label {
+    margin-top: 20px;
+  }
+
+  .noUi {
+    &-target {
+      width: 80%;
+    }
+
+    &-handle {
+      cursor: pointer;
+      width: 64px !important;
+      height: 64px !important;
+      top: -38px !important;
+      right: -26px !important;
+
+      border: none;
+      box-shadow: none;
+      background: none;
+      border-radius: 50%;
+      background-image: url('./frame2.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+
+      &:after,
+      &:before {
+        content: unset;
+      }
+      &:active {
+        background-image: url('./sticker.gif');
+      }
+    }
+  }
 }

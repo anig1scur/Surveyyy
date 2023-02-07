@@ -7,18 +7,28 @@
     "dev": "vite",
     "build": "vite build",
     "vdev": "vercel dev --debug",
-    "deploy": "vercel ."
+    "deploy": "vercel .",
+    "generate": "npx prisma generate"
   },
   "dependencies": {
+    "@fastify/autoload": "^5.7.1",
+    "@fastify/cookie": "^8.3.0",
+    "@fastify/helmet": "^10.1.0",
+    "@fastify/jwt": "^6.5.0",
+    "@fastify/sensible": "^5.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@lukeed/ms": "^2.0.0",
+    "@prisma/client": "^3.11.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@tanstack/react-query": "^4.0.10",
     "@tanstack/react-query-devtools": "^4.0.10",
     "@types/progressbar.js": "^1.1.2",
     "axios": "^0.27.2",
+    "bcrypt": "^5.1.0",
     "classnames": "^2.3.2",
+    "env-schema": "^3.5.2",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "fastify": "^4.11.0",
@@ -27,7 +37,10 @@
     "fastify-print-routes": "^2.0.7",
     "gsap": "^3.11.4",
     "html-react-parser": "^3.0.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.4",
+    "nodemailer": "^6.7.3",
+    "nouislider-react": "^3.4.1",
     "path": "^0.12.7",
     "progressbar.js": "^1.1.0",
     "ra-data-json-server": "^4.7.0",
@@ -46,6 +59,9 @@
   },
   "devDependencies": {
     "@kamona/tailwindcss-perspective": "^0.1.1",
+    "@types/bcrypt": "^5.0.0",
+    "@types/http-errors": "^2.0.1",
+    "@types/jsonwebtoken": "^9.0.1",
     "@types/node": "^18.11.7",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
@@ -61,10 +77,14 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.20",
+    "prisma": "^3.11.0",
     "sass": "^1.56.2",
     "sass-loader": "^13.2.0",
     "tailwindcss": "^3.2.4",
     "vite": "^3.0.7"
+  },
+  "prisma": {
+    "schema": "server/db/schema.prisma"
   },
   "license": "MIT"
 }

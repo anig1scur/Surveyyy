@@ -12,6 +12,11 @@ export enum QuestionType {
   fillInBlank = 'fillInBlank',
 }
 
+export enum PageType {
+  intro = 'intro',
+  normal = 'normal',
+}
+
 export interface selectedValuesType {
   [key: string]: number | string | Set<string> | string[] | selectedValuesType
 };
@@ -97,7 +102,6 @@ export type SliderQ = Question & {
   type: QuestionType.slider;
   min: number;
   max: number;
-  step: number;
   value?: number;
   // 左闭右开
   labelConfig: rangeItem[];
@@ -151,7 +155,7 @@ export type sectionBase = {
 export type Q = ChoiceQ | SliderQ | SwiperQ | FillInBlankQ;
 
 export type Page = sectionBase & {
-  type: 'page';
+  type: 'normal' | 'intro';
   text?: string;
   iframeSrc?: string;
   redirectUri?: string;
@@ -171,3 +175,10 @@ export type Collection = {
   createdAt: Date;
   answers: selectedValuesType;
 }
+
+export type User = {
+  name: string;
+  avatar?: string;
+  password: string;
+  refreshTokensId: string;
+};
