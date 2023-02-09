@@ -1,4 +1,4 @@
-import build from '../server/index';
+import build from '../server';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { fastifyConfig } from '../server/config';
 

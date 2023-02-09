@@ -1,30 +1,29 @@
-import { join, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join, dirname } from 'node:path';
 
-import fastify from 'fastify'
-import autoload from '@fastify/autoload'
-import helmet from '@fastify/helmet'
-import blipp from 'fastify-blipp'
+import fastify from 'fastify';
+import autoload from '@fastify/autoload';
+import helmet from '@fastify/helmet';
+import blipp from 'fastify-blipp';
 
-import type { FastifyInstance, FastifyServerOptions } from 'fastify'
+import type { FastifyInstance, FastifyServerOptions } from 'fastify';
 
-import services from './services'
-import controllers from './controllers'
+import services from './services';
+import controllers from './controllers';
 
 const build = (opts: FastifyServerOptions = {}) => {
-  const f: FastifyInstance = fastify(opts)
+  const f: FastifyInstance = fastify(opts);
 
-  f.register(helmet)
+  f.register(helmet);
 
-  f.register(blipp)
+  f.register(blipp);
 
   f.register(autoload, {
-    dir: join(__dirname, 'plugins')
-  })
+    dir: join(__dirname, 'plugins'),
+  });
 
-  f.register(services)
+  f.register(services);
 
-  f.register(controllers)
+  f.register(controllers);
 
   f.register(autoload, {
     dir: join(__dirname, 'routes'),
@@ -32,6 +31,6 @@ const build = (opts: FastifyServerOptions = {}) => {
   });
 
   return f;
-}
+};
 
-export default build
+export default build;
