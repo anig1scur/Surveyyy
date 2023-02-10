@@ -1,10 +1,12 @@
 .choice {
   margin: 10px;
-  max-width: 600px;
   .title {
-    white-space: pre-line;
+    white-space: pre-wrap;
+    font-size: 18px;
+    font-weight: 500;
   }
   .options {
+    padding-top: 10px;
     .option {
       width: 100%;
       overflow: hidden;
@@ -16,6 +18,7 @@
         height: 36px;
         position: absolute;
         opacity: 0;
+        cursor: pointer;
       }
       .path {
         stroke-dasharray: 1800;
@@ -25,7 +28,24 @@
           stroke-dashoffset: 0;
         }
       }
-    }
 
+      .input {
+        input {
+          padding-left: 5px;
+          width: 55%;
+          &:focus {
+            outline: 1px solid #cecece;
+            border-radius: 12px;
+          }
+        }
+        .confirm {
+          margin-left: 5px;
+          padding: 1px 5px;
+          background-color: rgb(177, 177, 177);
+          border-radius: 16px;
+          color: white;
+        }
+      }
+    }
   }
 }

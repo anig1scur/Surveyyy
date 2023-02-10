@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt    DateTime  @default(now())
+  verifiedAt   DateTime?
+  email        String    @unique
+  name         String
+  passwordHash String
+  sessions     Session[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.ObjectId
+  nonce     String
+  expires   DateTime
+
+  @@unique([userId, nonce])
+  @@map("session")
+}
+
+model Survey {
+
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  title     String
+  authorId  String   @db.ObjectId
+  sections  Json
+
+  @@map("survey")
+}

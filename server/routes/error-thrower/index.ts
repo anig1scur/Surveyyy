@@ -6,7 +6,7 @@ export default fp(async (server: FastifyInstance, opts: FastifyPluginOptions, ne
     url: '/error-thrower',
     method: ['GET'],
     handler: async (request, reply) => {
-      throw new Error('Oh no, something bad happened, try to debug me');
+      // throw new Error('Oh no, something bad happened, try to debug me');
       return reply.send({ date: new Date(), works: true });
     },
   });
