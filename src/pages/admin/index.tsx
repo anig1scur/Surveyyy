@@ -3,19 +3,17 @@ import React, { FC } from 'react';
 import { Admin, Resource, CustomRoutes } from 'react-admin'; // eslint-disable-line import/no-unresolved
 import { Route } from 'react-router-dom';
 
-import authProvider from './authProvider';
 import CustomRouteNoLayout from './customRouteNoLayout';
-import dataProvider from './dataProvider';
 import Layout from './Layout';
-import posts from './posts';
+import surveys from './surveys';
+import jsonServerProvider from 'ra-data-json-server';
 
 export type Props = {};
 
 const SurveyAdmin: FC<Props> = () => (
   <Admin
     basename='/admin'
-    authProvider={authProvider}
-    dataProvider={dataProvider}
+    dataProvider={jsonServerProvider('https://surveyyy.vercel.app/api')}
     title='Example Admin'
     layout={Layout}>
     <CustomRoutes noLayout>
@@ -25,8 +23,8 @@ const SurveyAdmin: FC<Props> = () => (
       />
     </CustomRoutes>
     <Resource
-      name='posts'
-      {...posts}
+      name='surveys'
+      {...surveys}
     />
     {(permissions) => (
       <>

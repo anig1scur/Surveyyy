@@ -13,6 +13,14 @@ const routes: FastifyPluginAsync = async (f) => {
     handler: survey.list
   })
 
+  // get one survey
+  f.route({
+    method: 'GET',
+    url: '/:surveyId',
+    schema: surveySchema.get,
+    handler: survey.get
+  })
+
   f.route({
     method: 'POST',
     url: '/',

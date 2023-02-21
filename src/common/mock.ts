@@ -372,4 +372,4 @@ export const SurveyMock: Survey = {
 };
 
 
-console.log('survey', JSON.stringify(SurveyMock));
+// console.log('survey', JSON.stringify(SurveyMock));

@@ -395,4 +395,12 @@ export const list = {
   },
 } as const;
 
-export default { create, list, schema };
+export const get = {
+  response: {
+    200: {
+      $ref: 'survey#/definitions/Survey',
+    },
+  },
+} as const;
+
+export default { create, list, schema, get };

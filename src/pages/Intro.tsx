@@ -7,7 +7,7 @@ export type Props = {
 const Intro: FC<Props> = (props) => {
 
   const getStats = async (params?: {}) => {
-    console.log(params);
+    // console.log(params);
   };
 
   useLayoutEffect(() => {

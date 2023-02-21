@@ -16,6 +16,10 @@ export class SurveyService {
     return this.survey.findMany(args);
   };
 
+  countSurveys = (args?: Prisma.SurveyCountArgs) => {
+    return this.survey.count(args);
+  };
+
   createSurvey = async ({ ...props }: Survey) => {
     try {
       return await this.survey.create({

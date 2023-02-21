@@ -3,6 +3,7 @@ import { join, dirname } from 'node:path';
 import fastify from 'fastify';
 import autoload from '@fastify/autoload';
 import helmet from '@fastify/helmet';
+import fastifyCors from '@fastify/cors';
 import blipp from 'fastify-blipp';
 
 import type { FastifyInstance, FastifyServerOptions } from 'fastify';
@@ -14,6 +15,10 @@ const build = (opts: FastifyServerOptions = {}) => {
   const f: FastifyInstance = fastify(opts);
 
   f.register(helmet);
+
+  f.register(fastifyCors, {
+    exposedHeaders: ['X-Total-Count'],
+  });
 
   f.register(blipp);
 
