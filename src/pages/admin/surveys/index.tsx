@@ -1,8 +1,8 @@
-import SurveyEdit from './SurveyEdit';
+import { SurveyEdit, SurveyCreate } from './SurveyEdit';
 import SurveyList from './SurveyList';
 
 export default {
   list: SurveyList,
-  create: SurveyEdit,
+  create: SurveyCreate,
   edit: SurveyEdit,
 };
