@@ -11,40 +11,44 @@ import {
   SelectInput,
   Create,
 } from 'react-admin';
+import Sortable from '../utils/SortableArrayInput';
 
 // QuestionType
 import { QuestionType } from '../../../common/types';
 
-const ChoiceForm = () => {
+const ChoiceForm = ({ getSource }) => {
   return (
     <>
-      <TextInput source='title' />
-      <ArrayInput source='options'>
+      <TextInput source={getSource('title')} />
+      {/* <Sortable> */}
+      <ArrayInput source={getSource('options')}>
         <SimpleFormIterator>
           <TextInput source='value' />
         </SimpleFormIterator>
       </ArrayInput>
-      <BooleanInput source='allowMultiple' />
-      <BooleanInput source='allowCustom' />
+      {/* </Sortable> */}
+      <BooleanInput source={getSource('allowMultiple')} />
+      <BooleanInput source={getSource('allowCustom')} />
     </>
   );
 };
 
-const SliderForm = () => (
+const SliderForm = ({ getSource }) => (
   <>
-    <NumberInput source='min' />
-    <NumberInput source='max' />
-    <NumberInput source='value' />
-    <NumberInput source='step' />
-    <TextInput source='labelConfig' />
-    <TextInput source='valueType' />
+    <NumberInput source={getSource('min')} />
+    <NumberInput source={getSource('max')} />
+    <NumberInput source={getSource('step')} />
+    <NumberInput source={getSource('value')} />
+    <TextInput source={getSource('labelConfig')} />
+    <TextInput source={getSource('valueType')} />
   </>
 );
 
-const SwiperForm = () => (
+const SwiperForm = ({ getSource }) => (
   <>
-    <TextInput source='title' />
-    <ArrayInput source='cards'>
+    <TextInput source={getSource('title')} />
+    <TextInput source={getSource('cards')} />
+    <ArrayInput>
       <SimpleFormIterator>
         <TextInput source='text' />
         <TextInput source='image' />
@@ -53,29 +57,29 @@ const SwiperForm = () => (
   </>
 );
 
-const FillInBlankForm = () => (
-  <>
-    <ArrayInput source='config'>
-      <SimpleFormIterator>
-        <TextInput source='text' />
-        <TextInput source='type' />
-        <TextInput source='id' />
-        <TextInput source='options' />
-      </SimpleFormIterator>
-    </ArrayInput>
-  </>
+const FillInBlankForm = ({ getSource }) => (
+  // <Sortable>
+  <ArrayInput source={getSource('config')}>
+    <SimpleFormIterator>
+      <TextInput source='text' />
+      <TextInput source='type' />
+      <TextInput source='id' />
+      <TextInput source='options' />
+    </SimpleFormIterator>
+  </ArrayInput>
+  // </Sortable>
 );
 
-const renderForm = (type: QuestionType) => {
+const renderForm = (type: QuestionType, getSource) => {
   switch (type) {
     case QuestionType.choice:
-      return <ChoiceForm />;
+      return <ChoiceForm getSource={getSource} />;
     case QuestionType.slider:
-      return <SliderForm />;
+      return <SliderForm getSource={getSource} />;
     case QuestionType.swiper:
-      return <SwiperForm />;
+      return <SwiperForm getSource={getSource} />;
     case QuestionType.fillInBlank:
-      return <FillInBlankForm />;
+      return <FillInBlankForm getSource={getSource} />;
     default:
       return null;
   }
@@ -84,28 +88,41 @@ const renderForm = (type: QuestionType) => {
 const SurveyComponent = () => (
   <SimpleForm>
     <TextInput source='title' />
-    <ArrayInput source='sections'>
-      <SimpleFormIterator>
-        <SelectInput
-          source='type'
-          choices={Object.values(QuestionType).map((type) => ({
-            id: type,
-            name: type,
-          }))}
-        />
-        <FormDataConsumer>
-          {({
+    <Sortable source='sections'>
+    {/* <ArrayInput source='sections'> */}
+      {/* <SimpleFormIterator> */}
+      <SelectInput
+        source='type'
+        choices={Object.values(QuestionType).map((type) => ({
+          id: type,
+          name: type,
+        }))}
+      />
+      <FormDataConsumer>
+        {(props) => {
+          const {
             formData, // The whole form data
             scopedFormData, // The data for this item of the ArrayInput
             getSource, // A function to get the valid source inside an ArrayInput
             ...rest
-          }) => scopedFormData && renderForm(scopedFormData.type)}
-        </FormDataConsumer>
-      </SimpleFormIterator>
-    </ArrayInput>
+          } = props;
+          return scopedFormData && renderForm(scopedFormData.type, getSource);
+        }}
+      </FormDataConsumer>
+      {/* </SimpleFormIterator> */}
+    {/* </ArrayInput> */}
+    </Sortable>
   </SimpleForm>
 );
 
-const SurveyEdit = () => <Edit><SurveyComponent /></Edit>;
-const SurveyCreate = () => <Create redirect="edit"><SurveyComponent /></Create>;
+const SurveyEdit = () => (
+  <Edit>
+    <SurveyComponent />
+  </Edit>
+);
+const SurveyCreate = () => (
+  <Create redirect='edit'>
+    <SurveyComponent />
+  </Create>
+);
 export { SurveyEdit, SurveyCreate };
