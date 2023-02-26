@@ -11,12 +11,12 @@ Now it supports the following question types:
 
 ### TODO
 
-- [ ] Survey Model
+- [x] Survey Model
 - [ ] Submit API
 - [ ] Survey submit
-- [ ] Admin panel
+- [x] Admin panel
   - [ ] Accounts && Cookie/Token
-  - [ ] Survey Config
+  - [x] Survey Config
     - [ ] visual
   - [ ] Data analysis
 
