@@ -25,12 +25,11 @@ export class SurveyController {
   list: RouteHandler<{
     Reply: Array<Survey>;
   }> = async (req, rep) => {
+    rep.header('X-Total-Count',  await this.surveyService.countSurveys());
+
     // TODO: FIXME
     // @ts-ignore
-    const range = req.query.range;
-    const surveys = await this.surveyService.querySurveys();
-    rep.header('Content-Range', `posts ${range[0]}-${range[1]} ${await this.surveyService.countSurveys()}`);
-    rep.send(surveys);
+    rep.send(await this.surveyService.querySurveys());
   };
 
   create: RouteHandler<{

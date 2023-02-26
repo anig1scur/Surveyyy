@@ -1,7 +1,8 @@
 /* eslint react/jsx-key: off */
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Admin, Resource, CustomRoutes } from 'react-admin'; // eslint-disable-line import/no-unresolved
 import { Route } from 'react-router-dom';
+import { fetchUtils } from 'ra-core';
 
 import CustomRouteNoLayout from './customRouteNoLayout';
 import Layout from './Layout';
@@ -13,7 +14,7 @@ export type Props = {};
 const SurveyAdmin: FC<Props> = () => (
   <Admin
     basename='/admin'
-    dataProvider={simpleRestProvider('https://surveyyy.vercel.app/api')}
+    dataProvider={simpleRestProvider('https://surveyyy.vercel.app/api', fetchUtils.fetchJson, 'X-Total-Count')}
     title='Example Admin'
     layout={Layout}>
     <CustomRoutes noLayout>
