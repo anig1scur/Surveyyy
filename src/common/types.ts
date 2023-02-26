@@ -91,7 +91,10 @@ export type ChoiceQ = Question & {
   customOptionLabel?: string;
 };
 
-export type rangeItem = [number, string];
+export type rangeItem = {
+  value: number;
+  label: string;
+};
 
 export enum valueType {
   number = 'number',
@@ -104,7 +107,7 @@ export type SliderQ = Question & {
   max: number;
   value?: number;
   // 左闭右开
-  labelConfig: rangeItem[];
+  options: rangeItem[];
   valueType: valueType;
 };
 
@@ -118,7 +121,7 @@ export type cardItem = {
 
 export type SwiperQ = Question & {
   type: QuestionType.swiper;
-  cards: cardItem[];
+  options: cardItem[];
 };
 
 export enum fillInType {
@@ -142,7 +145,7 @@ export type FillInBlankConfig = (BlankItem | PlainItem)[];
 
 export type FillInBlankQ = Question & {
   type: QuestionType.fillInBlank;
-  config: FillInBlankConfig;
+  options: FillInBlankConfig;
 };
 
 export type sectionBase = {

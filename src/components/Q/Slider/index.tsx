@@ -1,7 +1,7 @@
 import './style.scss';
-import { FC, useState, useContext, useEffect } from 'react';
+import { FC, useState, useContext } from 'react';
 import classnames from 'classnames';
-import { SliderQ, BaseComponentProps, valueType, selectedValuesType } from '../../../common/types';
+import { SliderQ, BaseComponentProps, selectedValuesType } from '../../../common/types';
 import { StoredContext } from '../../../context';
 import Nouislider from 'nouislider-react';
 import 'nouislider/distribute/nouislider.css';
@@ -13,17 +13,16 @@ export type Props = BaseComponentProps & {
 
 export const Slider: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
-  const { min, max } = q;
   const { form } = useContext(StoredContext);
-  const startV = (form[q.id] as number) || q.value || q.min;
+  const labelConfig = q.options.sort((a, b) => a.value - b.value);
+  const min = labelConfig[0].value;
+  const max = labelConfig[labelConfig.length - 1].value;
+
+  const startV = (form[q.id] as number) || q.value || min;
   const [value, setValue] = useState<number>(startV);
 
   function getLabel(value: number) {
-    return q.labelConfig.sort((a, b) => b[0] - a[0]).find(([threshold, _]) => value >= threshold)?.[1];
-  }
-
-  function mapRange(value: number, low1: number, high1: number, low2: number, high2: number): number {
-    return low2 + ((high2 - low2) * (value - low1)) / (high1 - low1);
+    return labelConfig.find((config) => value <= config.value)?.label;
   }
 
   return (
@@ -46,7 +45,7 @@ export const Slider: FC<Props> = (props) => {
         range={{ min: min, max: max }}
         start={startV}
       />
-      <div className='slider-label'>{q.valueType === valueType.number ? value : getLabel(value)}</div>
+      <div className='slider-label'>{getLabel(value)}</div>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const build = (opts: FastifyServerOptions = {}) => {
   f.register(helmet);
 
   f.register(fastifyCors, {
-    exposedHeaders: ['X-Total-Count'],
+    exposedHeaders: ['Content-Range'],
   });
 
   f.register(blipp);

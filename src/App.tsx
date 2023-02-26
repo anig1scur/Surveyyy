@@ -20,7 +20,7 @@ const App: FC<Props> = () => (
           element={<Content />}
         />
         <Route
-          path='app'
+          path='survey'
           element={
             <StoredProvider>
               <SurveyWeb survey={SurveyMock} />
@@ -28,11 +28,7 @@ const App: FC<Props> = () => (
           }>
           <Route
             path=':id'
-            element={<SurveyWeb survey={SurveyMock} />}
-          />
-          <Route
-            path='*'
-            element={<SurveyWeb survey={SurveyMock} />}
+            element={<SurveyWeb />}
           />
         </Route>
         <Route
