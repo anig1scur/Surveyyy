@@ -10607,13 +10607,12 @@ ra-data-fakerest@^4.7.2:
   dependencies:
     fakerest "^3.0.0"
 
-ra-data-json-server@^4.7.0:
-  version "4.7.2"
-  resolved "https://registry.npmmirror.com/ra-data-json-server/-/ra-data-json-server-4.7.2.tgz#1cb69ea68828b59fc4018874dffb274844f309e5"
-  integrity sha512-O4Mc7vq0HK8i+RyKa2dtvMN3iSvLYJrsmSQqqZnJMGaSwioWZBi9WBuuYRMUCuFlSQx/7y1lzYfrlWPkGci7Mw==
+ra-data-simple-rest@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.npmmirror.com/ra-data-simple-rest/-/ra-data-simple-rest-4.8.1.tgz#1e8a2c1af1e3cd6987a662ce7fed1aa3b4339359"
+  integrity sha512-PK8MoPhHMTzUMa7LROU+fKM5cUX/W5iGHh+UHfn4/UHM+KJyyfGaJjbKTwDtovS9k6t0FA0ZH8iniFU5pH6gnw==
   dependencies:
     query-string "^7.1.1"
-    ra-core "^4.7.2"
 
 ra-i18n-polyglot@^4.7.2:
   version "4.7.2"

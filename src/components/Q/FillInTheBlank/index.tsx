@@ -22,7 +22,7 @@ export type Props = BaseComponentProps & {
 
 export const FillInTheBlank: FC<Props> = (props) => {
   const { q, style, className, onChange } = props;
-  const config = q.config;
+  const config = q.options;
 
   const { form } = useContext(StoredContext);
   const selectedValues: selectedValuesType = form[q.id] as selectedValuesType || {};

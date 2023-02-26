@@ -9,8 +9,17 @@ export class SurveyService {
   getSurveyById = (surveyId: string, opts: Omit<Prisma.SurveyFindUniqueArgs, 'where'> = {}) =>
     this.survey.findUnique({ where: { id: surveyId }, ...opts });
 
-  updateSurveyById = (surveyId: string, opts: Omit<Prisma.SurveyUpdateArgs, 'where'>) =>
-    this.survey.update({ where: { id: surveyId }, ...opts });
+  updateSurveyById = (surveyId: string, props: Survey) => {
+    const { title, sections, ...rest } = props;
+    return this.survey.update({
+      where: { id: surveyId },
+      data: {
+        title,
+        // @ts-ignore
+        sections,
+      },
+    });
+  };
 
   querySurveys = (args?: Prisma.SurveyFindManyArgs) => {
     return this.survey.findMany(args);
@@ -20,7 +29,7 @@ export class SurveyService {
     return this.survey.count(args);
   };
 
-  createSurvey = async ({ ...props }: Survey) => {
+  createSurvey = async ({...props}: Survey) => {
     try {
       return await this.survey.create({
         // @ts-ignore

@@ -35,13 +35,13 @@ export const Swiper: FC<Props> = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: INIT_STATE, cardsLength: q.cards.length });
-  }, [q.cards.length]);
+    dispatch({ type: INIT_STATE, cardsLength: q.options.length });
+  }, [q.options.length]);
 
   useEffect(() => {
     const values = Object.entries(lastChoice.selectedValues).reduce(function (prev: selectedValuesType, pair) {
       const [key, value] = pair;
-      prev[q.cards[parseInt(key)].id] = value;
+      prev[q.options[parseInt(key)].id] = value;
       return prev;
     }, {});
 
@@ -61,9 +61,9 @@ export const Swiper: FC<Props> = (props) => {
       style={style}>
       <div className='title'>{q.title}</div>
       <div className='cards'>
-        {q.cards.map((card, index) => (
+        {q.options.map((card, index) => (
           <Card
-            cardLength={q.cards.length}
+            cardLength={q.options.length}
             key={index}
             index={index}
             {...card}

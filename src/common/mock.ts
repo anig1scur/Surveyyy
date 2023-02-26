@@ -9,7 +9,7 @@ export const SurveyMock: Survey = {
       id: '99999',
       type: 'intro',
       title: 'Welcome balabala!',
-      text: 'This test takes about 8 minutes to complete.'
+      text: 'This test takes about 8 minutes to complete.',
     },
     {
       id: 'asdsa',
@@ -66,19 +66,23 @@ export const SurveyMock: Survey = {
       max: 11,
       value: 50,
       valueType: valueType.string,
-      labelConfig: [
-        [0, 'Never'],
-        [1, '1'],
-        [2, '2'],
-        [3, '3'],
-        [4, '4'],
-        [5, '5'],
-        [6, '6'],
-        [7, '7'],
-        [8, '8'],
-        [9, '9'],
-        [10, '10'],
-        [11, 'More than 10 years'],
+      options: [
+        {
+          value: 0,
+          label: `Never`,
+        },
+        {
+          value: 1,
+          label: `1 year`,
+        },
+        {
+          value: 2,
+          label: `2 years`,
+        },
+        {
+          value: 3,
+          label: 'More than 2 years',
+        },
       ],
     },
     {
@@ -215,7 +219,7 @@ export const SurveyMock: Survey = {
       id: 'swiper-aa',
       type: QuestionType.swiper,
       title: `What counts as “local” about a city?`,
-      cards: [
+      options: [
         {
           id: 'swiper-aa-1',
           text: 'History background?',
@@ -245,7 +249,7 @@ export const SurveyMock: Survey = {
     {
       id: '1234',
       type: QuestionType.fillInBlank,
-      config: [
+      options: [
         {
           text: 'The making off happens on ',
           type: fillInType.plain,
@@ -355,21 +359,20 @@ export const SurveyMock: Survey = {
       min: 0,
       max: 1,
       valueType: valueType.string,
-      labelConfig: [
-        [
-          0,
-          `separate private life from work, and social life from working
+      options: [
+        {
+          value: 0,
+          label: `separate private life from work, and social life from working
         relationships`,
-        ],
-        [
-          1,
-          `mix private life and work, and social
+        },
+        {
+          value: 1,
+          label: `mix private life and work, and social
         life and working relationships`,
-        ],
+        },
       ],
     },
   ],
 };
-
 
 console.log('survey', JSON.stringify(SurveyMock));

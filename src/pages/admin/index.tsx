@@ -6,14 +6,14 @@ import { Route } from 'react-router-dom';
 import CustomRouteNoLayout from './customRouteNoLayout';
 import Layout from './Layout';
 import surveys from './surveys';
-import jsonServerProvider from 'ra-data-json-server';
+import simpleRestProvider from 'ra-data-simple-rest';
 
 export type Props = {};
 
 const SurveyAdmin: FC<Props> = () => (
   <Admin
     basename='/admin'
-    dataProvider={jsonServerProvider('https://surveyyy.vercel.app/api')}
+    dataProvider={simpleRestProvider('https://surveyyy.vercel.app/api')}
     title='Example Admin'
     layout={Layout}>
     <CustomRoutes noLayout>

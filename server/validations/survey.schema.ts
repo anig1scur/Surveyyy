@@ -1,10 +1,10 @@
 const schema = {
-  $schema: "http://json-schema.org/draft-07/schema#",
-  $ref: "survey#/definitions/Survey",
+  $schema: 'http://json-schema.org/draft-07/schema#',
+  $ref: 'survey#/definitions/Survey',
   $id: 'survey',
   definitions: {
     Survey: {
-      $id: "Survey",
+      $id: 'Survey',
       type: 'object',
       properties: {
         sections: {
@@ -27,7 +27,7 @@ const schema = {
           format: 'date-time',
         },
       },
-      required: ['sections', 'id', 'title', 'authorId'],
+      required: ['sections', 'title'],
       additionalProperties: false,
     },
     S: {
@@ -69,6 +69,9 @@ const schema = {
             $ref: 'survey#/definitions/Option',
           },
         },
+        id: {
+          type: 'string',
+        },
         allowMultiple: {
           type: 'boolean',
         },
@@ -84,9 +87,6 @@ const schema = {
         tip: {
           type: 'string',
         },
-        id: {
-          type: 'string',
-        },
         title: {
           type: 'string',
         },
@@ -97,7 +97,7 @@ const schema = {
           },
         },
       },
-      required: ['id', 'options', 'type'],
+      required: ['options', 'type'],
     },
     Option: {
       type: 'object',
@@ -122,7 +122,7 @@ const schema = {
           additionalProperties: false,
         },
       },
-      required: ['label', 'value'],
+      required: ['value'],
       additionalProperties: false,
     },
     Attachment: {
@@ -142,26 +142,23 @@ const schema = {
       type: 'object',
       additionalProperties: false,
       properties: {
+        id: {
+          type: 'string',
+        },
         type: {
           const: 'slider',
         },
-        min: {
-          type: 'number',
+        title: {
+          type: 'string',
         },
-        max: {
-          type: 'number',
-        },
-        value: {
-          type: 'number',
-        },
-        step: {
-          type: 'number',
-        },
-        labelConfig: {
+        options: {
           type: 'array',
           items: {
             $ref: 'survey#/definitions/rangeItem',
           },
+        },
+        value: {
+          type: 'string',
         },
         valueType: {
           $ref: 'survey#/definitions/valueType',
@@ -172,12 +169,6 @@ const schema = {
         tip: {
           type: 'string',
         },
-        id: {
-          type: 'string',
-        },
-        title: {
-          type: 'string',
-        },
         surveyIds: {
           type: 'array',
           items: {
@@ -185,18 +176,20 @@ const schema = {
           },
         },
       },
-      required: ['id', 'labelConfig', 'max', 'min', 'type', 'valueType'],
+      required: ['options', 'type'],
     },
     rangeItem: {
-      type: 'array',
-      items: [
-        {
+      type: 'object',
+      properties: {
+        value: {
           type: 'number',
         },
-        {
+        label: {
           type: 'string',
         },
-      ],
+      },
+      required: ['value', 'label'],
+      additionalProperties: false,
     },
     valueType: {
       type: 'string',
@@ -206,10 +199,13 @@ const schema = {
       type: 'object',
       additionalProperties: false,
       properties: {
+        id: {
+          type: 'string',
+        },
         type: {
           const: 'swiper',
         },
-        cards: {
+        options: {
           type: 'array',
           items: {
             $ref: 'survey#/definitions/cardItem',
@@ -221,9 +217,6 @@ const schema = {
         tip: {
           type: 'string',
         },
-        id: {
-          type: 'string',
-        },
         title: {
           type: 'string',
         },
@@ -234,7 +227,7 @@ const schema = {
           },
         },
       },
-      required: ['cards', 'id', 'type'],
+      required: ['options', 'type'],
     },
     cardItem: {
       type: 'object',
@@ -255,7 +248,6 @@ const schema = {
           type: 'string',
         },
       },
-      required: ['id'],
       additionalProperties: false,
     },
     FillInBlankQ: {
@@ -265,16 +257,16 @@ const schema = {
         type: {
           const: 'fillInBlank',
         },
-        config: {
+        id: {
+          type: 'string',
+        },
+        options: {
           $ref: 'survey#/definitions/FillInBlankConfig',
         },
         attachment: {
           $ref: 'survey#/definitions/Attachment',
         },
         tip: {
-          type: 'string',
-        },
-        id: {
           type: 'string',
         },
         title: {
@@ -287,7 +279,7 @@ const schema = {
           },
         },
       },
-      required: ['config', 'id', 'type'],
+      required: ['options', 'type'],
     },
     FillInBlankConfig: {
       type: 'array',
@@ -322,7 +314,7 @@ const schema = {
           },
         },
       },
-      required: ['id', 'text', 'type', 'options'],
+      required: ['text', 'type', 'options'],
       additionalProperties: false,
     },
     PlainItem: {
@@ -353,6 +345,9 @@ const schema = {
         text: {
           type: 'string',
         },
+        id: {
+          type: 'string',
+        },
         iframeSrc: {
           type: 'string',
         },
@@ -361,9 +356,6 @@ const schema = {
         },
         redirectDelay: {
           type: 'number',
-        },
-        id: {
-          type: 'string',
         },
         title: {
           type: 'string',
@@ -375,7 +367,7 @@ const schema = {
           },
         },
       },
-      required: ['id', 'type'],
+      required: ['type'],
     },
   },
 };
@@ -403,4 +395,6 @@ export const get = {
   },
 } as const;
 
-export default { create, list, schema, get };
+const put = create;
+
+export default { create, list, schema, get, put };
