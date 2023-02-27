@@ -176,7 +176,7 @@ export type Collection = {
   // maybe ip addr ?
   surveyId: string;
   createdAt: Date;
-  answers: selectedValuesType;
+  data: selectedValuesType;
 }
 
 export type User = {

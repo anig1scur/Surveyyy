@@ -17,12 +17,6 @@ const SurveyAdmin: FC<Props> = () => (
     dataProvider={simpleRestProvider('https://surveyyy.vercel.app/api', fetchUtils.fetchJson, 'X-Total-Count')}
     title='Example Admin'
     layout={Layout}>
-    <CustomRoutes noLayout>
-      <Route
-        path='/custom'
-        element={<CustomRouteNoLayout title='Posts from /custom' />}
-      />
-    </CustomRoutes>
     <Resource
       name='surveys'
       {...surveys}
