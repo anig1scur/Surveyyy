@@ -13,7 +13,8 @@ export class CollectionController {
 
     // TODO: FIXME
     // @ts-ignore
-    rep.send(await this.collectionService.queryCollections());
+    const collections = await this.collectionService.queryCollections();
+    rep.send(collections);
   };
 
   create: RouteHandler<{

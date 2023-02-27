@@ -18,7 +18,26 @@ const schema = {
           format: 'date-time',
         },
         data: {
-          type: 'any',
+          type: 'object',
+          additionalProperties: {
+            anyOf: [
+              {
+                type: 'array',
+                items: {
+                  type: 'string',
+                },
+              },
+              {
+                type: 'object',
+                additionalProperties: {
+                  type: 'string',
+                },
+              },
+              {
+                type: 'string',
+              },
+            ],
+          },
         },
       },
       required: ['data', 'surveyId'],

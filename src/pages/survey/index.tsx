@@ -82,12 +82,11 @@ const Arrow: FC<ArrowProps> = (props) => {
 const Survey: FC<Props> = (props) => {
   const params = useParams();
   const [survey, setSurvey] = useState<SurveyType | null>(props?.survey || null);
-  const { skipped, setForm, setProgress } = useContext(StoredContext);
+  const { form, skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
   const [skippedQs, setSkippedQs] = useState<Set<string>>(new Set());
-  const { form } = useContext(StoredContext);
-  console.log(form);
+  console.log(JSON.stringify(form, (_key, value) => (value instanceof Set ? [...value] : value)));
 
   const fetchSurvey = async () => {
     const { data } = await axios.get('https://surveyyy.vercel.app/api/surveys/' + params.id);
