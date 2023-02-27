@@ -35,7 +35,6 @@ model Session {
 }
 
 model Survey {
-
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,4 +43,13 @@ model Survey {
   sections  Json
 
   @@map("survey")
+}
+
+model Collection {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  surveyId  String   @db.ObjectId
+  data      Json
+
+  @@map("collection")
 }

@@ -13,7 +13,7 @@ import {
 } from 'react-admin';
 
 import { Fragment } from 'react';
-import { QuestionType, fillInType } from '../../../common/types';
+import { QuestionType, fillInType, PageType } from '../../../common/types';
 
 const ChoiceForm = ({ getSource }) => {
   return (
@@ -131,7 +131,30 @@ const FillInBlankForm = ({ getBaseSource }) => (
   </ArrayInput>
 );
 
-const renderForm = (type: QuestionType, getSource) => {
+const IntroPage = ({ getSource }) => (
+  <Fragment>
+    <TextInput
+      source={getSource('text')}
+      shouldUnregister
+    />
+    <TextInput
+      source={getSource('iframeSrc')}
+      shouldUnregister
+    />
+    <TextInput
+      source={getSource('redirectUri')}
+      shouldUnregister
+    />
+    <NumberInput
+      shouldUnregister
+      source={getSource('redirectDelay')}
+    />
+  </Fragment>
+);
+
+const NormalPage = IntroPage;
+
+const renderSection = (type: QuestionType | PageType, getSource) => {
   switch (type) {
     case QuestionType.choice:
       return <ChoiceForm getSource={getSource} />;
@@ -141,6 +164,10 @@ const renderForm = (type: QuestionType, getSource) => {
       return <SwiperForm getSource={getSource} />;
     case QuestionType.fillInBlank:
       return <FillInBlankForm getBaseSource={getSource} />;
+    case PageType.intro:
+      return <IntroPage getSource={getSource} />;
+    case PageType.normal:
+      return <NormalPage getSource={getSource} />;
     default:
       return null;
   }
@@ -154,7 +181,7 @@ const SurveyComponent = () => (
         <SelectInput
           source='type'
           validate={required()}
-          choices={Object.values(QuestionType).map((type) => ({
+          choices={Object.values({...QuestionType, ...PageType}).map((type) => ({
             id: type,
             name: type,
           }))}
@@ -168,7 +195,7 @@ const SurveyComponent = () => (
               getSource, // A function to get the valid source inside an ArrayInput
               ...rest
             } = props;
-            return scopedFormData && renderForm(scopedFormData.type, getSource);
+            return scopedFormData && renderSection(scopedFormData.type, getSource);
           }}
         </FormDataConsumer>
       </SimpleFormIterator>
