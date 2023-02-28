@@ -10,6 +10,7 @@ import {
   SelectInput,
   Create,
   required,
+  ChipField
 } from 'react-admin';
 
 import { Fragment } from 'react';
@@ -22,14 +23,17 @@ const ChoiceForm = ({ getSource }) => {
         source={getSource('title')}
         shouldUnregister
       />
-      <ArrayInput
-        source={getSource('options')}
-        shouldUnregister>
+      <ArrayInput source={getSource('options')}>
         <SimpleFormIterator>
           <TextInput
             source='value'
             shouldUnregister
           />
+          <ArrayInput source='skip'>
+            <SimpleFormIterator>
+              <TextInput shouldUnregister />
+            </SimpleFormIterator>
+          </ArrayInput>
         </SimpleFormIterator>
       </ArrayInput>
       <BooleanInput
@@ -52,9 +56,7 @@ const SliderForm = ({ getSource }) => (
       source={getSource('title')}
       shouldUnregister
     />
-    <ArrayInput
-      source={getSource('options')}
-      shouldUnregister>
+    <ArrayInput source={getSource('options')}>
       <SimpleFormIterator>
         <NumberInput
           source='value'
@@ -75,9 +77,7 @@ const SwiperForm = ({ getSource }) => (
       source={getSource('title')}
       shouldUnregister
     />
-    <ArrayInput
-      source={getSource('options')}
-      shouldUnregister>
+    <ArrayInput source={getSource('options')}>
       <SimpleFormIterator>
         <TextInput
           source='text'
@@ -93,14 +93,9 @@ const SwiperForm = ({ getSource }) => (
 );
 
 const FillInBlankForm = ({ getBaseSource }) => (
-  <ArrayInput
-    source={getBaseSource('options')}
-    shouldUnregister>
+  <ArrayInput source={getBaseSource('options')}>
     <SimpleFormIterator>
-      <TextInput
-        source='text'
-        shouldUnregister
-      />
+      <TextInput source='text' />
       <SelectInput
         shouldUnregister
         validate={required()}
@@ -111,7 +106,7 @@ const FillInBlankForm = ({ getBaseSource }) => (
         }))}
         defaultValue={fillInType.blank}
       />
-      <FormDataConsumer shouldUnregister>
+      <FormDataConsumer>
         {({
           formData, // The whole form data
           scopedFormData, // The data for this item of the ArrayInput
@@ -178,10 +173,12 @@ const SurveyComponent = () => (
     <TextInput source='title' />
     <ArrayInput source='sections'>
       <SimpleFormIterator>
+        <ChipField source='id' />
+
         <SelectInput
           source='type'
           validate={required()}
-          choices={Object.values({...QuestionType, ...PageType}).map((type) => ({
+          choices={Object.values({ ...QuestionType, ...PageType }).map((type) => ({
             id: type,
             name: type,
           }))}

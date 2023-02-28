@@ -112,14 +112,10 @@ const schema = {
           $ref: 'survey#/definitions/Attachment',
         },
         skip: {
-          type: 'object',
-          properties: {
-            size: {
-              type: 'number',
-            },
+          type: 'array',
+          items: {
+            type: 'string',
           },
-          required: ['size'],
-          additionalProperties: false,
         },
       },
       required: ['value'],

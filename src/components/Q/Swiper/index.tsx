@@ -2,7 +2,7 @@
 
 import { FC, useEffect } from 'react';
 import classNames from 'classnames';
-import { faCheckCircle, faTimesCircle, faPlayCircle } from '@fortawesome/free-regular-svg-icons';
+// import { faCheckCircle, faTimesCircle, faPlayCircle } from '@fortawesome/free-regular-svg-icons';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 
 import './style.scss';
@@ -70,7 +70,7 @@ export const Swiper: FC<Props> = (props) => {
           />
         ))}
       </div>
-      <div className='buttons'>
+      {/* <div className='buttons'>
         <Button
           icon={faTimesCircle}
           type={NO}
@@ -83,7 +83,7 @@ export const Swiper: FC<Props> = (props) => {
           icon={faCheckCircle}
           type={YES}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
