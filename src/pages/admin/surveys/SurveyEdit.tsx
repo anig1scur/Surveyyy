@@ -10,7 +10,7 @@ import {
   SelectInput,
   Create,
   required,
-  ChipField
+  ChipField,
 } from 'react-admin';
 
 import { Fragment } from 'react';
@@ -149,7 +149,7 @@ const IntroPage = ({ getSource }) => (
 
 const NormalPage = IntroPage;
 
-const renderSection = (type: QuestionType | PageType, getSource) => {
+const renderSection = (type, getSource) => {
   switch (type) {
     case QuestionType.choice:
       return <ChoiceForm getSource={getSource} />;
@@ -174,7 +174,6 @@ const SurveyComponent = () => (
     <ArrayInput source='sections'>
       <SimpleFormIterator>
         <ChipField source='id' />
-
         <SelectInput
           source='type'
           validate={required()}
@@ -184,6 +183,7 @@ const SurveyComponent = () => (
           }))}
           defaultValue={QuestionType.choice}
         />
+        <BooleanInput source='expanded' defaultValue={false} />
         <FormDataConsumer>
           {(props) => {
             const {
@@ -192,7 +192,7 @@ const SurveyComponent = () => (
               getSource, // A function to get the valid source inside an ArrayInput
               ...rest
             } = props;
-            return scopedFormData && renderSection(scopedFormData.type, getSource);
+            return scopedFormData && scopedFormData.expanded && renderSection(scopedFormData.type, getSource);
           }}
         </FormDataConsumer>
       </SimpleFormIterator>
