@@ -13,7 +13,7 @@ import {
   PageType,
 } from '../../common/types';
 import Air from '@/assets/air-black.png';
-import Back from '@/assets/back-arrow.svg';
+import Next from '@/assets/next-arrow.svg';
 import { StoredContext } from '../../context';
 import Spin from '../../components/Loading/Spin';
 import { Page, Intro } from '../../components/P';
@@ -51,7 +51,7 @@ const Header: FC<HeaderProps> = () => (
   <div className='header'>
     <SwirlyProgress />
     <img
-      className='max-h-14 mr-2 object-cover'
+      className='h-14 mr-2 object-cover'
       src={Air}
     />
   </div>
@@ -70,7 +70,7 @@ const Arrow: FC<ArrowProps> = (props) => {
     <img
       style={style}
       className='h-14 ml-2'
-      src={Back}
+      src={Next}
       onClick={onClick}
     />
   );
@@ -168,13 +168,28 @@ const Survey: FC<Props> = (props) => {
     );
   };
   const curType = survey && survey.sections[activeIdx].type;
+  const css =
+    !curType || curType === 'intro'
+      ? {
+          '--bg-color': '#668df2',
+          '--font-color': 'white',
+          '--section-bg-color': '#668df2',
+        }
+      : {
+          '--bg-color': 'white',
+          '--font-color': '#141B41',
+          '--font-color-light': '#8798AD',
+          '--section-bg-color': '#E9EFFF',
+          '--foot-bg-color': '#E9EFFF',
+        };
   return (
-    <div className='survey'>
+    <div
+      className='survey'
+      style={css as React.CSSProperties}>
       {!survey ? (
         <Spin />
       ) : (
         <>
-          {/* just a hack of first intro page  */}
           {curType !== PageType.intro && (
             <Header
               active={activeIdx}
@@ -186,6 +201,7 @@ const Survey: FC<Props> = (props) => {
           {curType !== PageType.intro && (
             <div className='footer'>
               <Arrow
+                style={{ transform: 'rotate(180deg)' }}
                 onClick={() => {
                   if (activeIdx > 0) {
                     onGoBack();
@@ -193,7 +209,6 @@ const Survey: FC<Props> = (props) => {
                 }}
               />
               <Arrow
-                style={{ transform: 'rotate(180deg)' }}
                 onClick={() => {
                   if (activeIdx < survey.sections.length) {
                     onGoNext();

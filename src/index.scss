@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-.surveyyy {
-  display: flex;
+#surveyyy {
+  min-height: 100vh;
+  @supports (-webkit-touch-callout: none) {
+    min-height: -webkit-fill-available;
+  }
+  overflow: auto;
   justify-content: center;
+  display: flex;
 }

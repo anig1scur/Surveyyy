@@ -36,19 +36,19 @@ const Option: FC<OptionProps> = (props) => {
         height='36'
         viewBox='0 0 100 100'>
         <rect
-          x='12'
+          x='10'
           y='12'
           width='75'
-          height='75'
-          stroke='#e4e4e4'
+          height='70'
+          stroke='#141B41'
           fill='none'
         />
         <g transform='translate(0,-952.3622)'>
           <path
             d='m 21,972 c -2,53 10,38 56,38 -3,-8 -7,-15 -14,-21 2,5 15,18 15,22 0,0.11 -2,-0.15 -2,0 -1,1 -2,1 -4,2 -4,2 -10,8 -12,10 '
-            stroke='black'
+            stroke='#141B41'
             fill='none'
-            strokeWidth='3'
+            strokeWidth='4'
             className={classnames('path', {
               selected: selected,
             })}

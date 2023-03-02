@@ -3,37 +3,38 @@
   align-items: center;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  color: white;
-  background-color: #668df2;
+  color: var(--font-color);
   width: min(100vw, 540px);
+  background-color: var(--bg-color);
 
   .header {
     width: 100%;
     display: flex;
     position: sticky;
+    height: fit-content;
+    background-color: #668df2;
     margin-left: 1.25rem;
     margin-right: 1.25rem;
-    background-color: #ffffff;
-    color: #6b7280;
     font-size: 1.25rem;
     line-height: 1.75rem;
     justify-content: space-between;
     align-items: center;
-    border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   .section {
+    max-width: 100vw;
     display: flex;
-    margin-left: 1.25rem;
-    margin-right: 1.25rem;
+    height: 100%;
     flex-direction: column;
     align-items: center;
+    background-color: var(--section-bg-color);
+    padding: 1rem;
   }
   .footer {
     display: flex;
-    margin-top: 1.25rem;
+    background-color: var(--foot-bg-color);
     justify-content: space-between;
-    width: 90%;
+    width: 100%;
+    padding-bottom: 1rem;
   }
 }

@@ -12,7 +12,6 @@ const SurveyWeb = lazy(() => import('./pages/survey'));
 const SurveyAdmin = lazy(() => import('./pages/admin'));
 
 const App: FC<Props> = () => (
-    <div className='surveyyy'>
       <Routes>
         <Route
           path='/'
@@ -39,7 +38,6 @@ const App: FC<Props> = () => (
           element={<SurveyAdmin />}
         />
       </Routes>
-    </div>
 );
 
 export default App;

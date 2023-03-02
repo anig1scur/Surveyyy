@@ -18,14 +18,18 @@ export const Intro: FC<Props> = (props) => {
     <div className='intro'>
       <div className='title'>
         {title.split(/\n/).map((line) => (
-          <div className='paragraph' key={line}>{line}</div>
+          <div
+            className='paragraph'
+            key={line}>
+            {line}
+          </div>
         ))}
       </div>
-      <div className='text'>{text}</div>
       <div
-        className='start'
+        className='action'
         onClick={onGoNext}>
-        start
+        <div className='text'>{text}</div>
+        <div className='start'>start</div>
       </div>
     </div>
   );

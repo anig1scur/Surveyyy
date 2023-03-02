@@ -1,15 +1,21 @@
 .choice {
-  margin: 10px;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 2rem;
+  background-color: white;
   .title {
     white-space: pre-wrap;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 1.8rem;
+    font-weight: 600;
   }
   .options {
-    padding-top: 10px;
     .option {
       width: 100%;
+      font-size: 1.1rem;
       overflow: hidden;
+      letter-spacing: 0.02rem;
+      margin-top: 0.8rem;
       svg {
         display: inline;
       }

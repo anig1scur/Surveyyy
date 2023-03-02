@@ -63,7 +63,7 @@ export const SpiralProgress: FC<Props> = (props) => {
               style={{
                 fill: 'none',
                 fillRule: 'evenodd',
-                stroke: 'black',
+                stroke: 'white',
                 strokeWidth: 1.6,
                 strokeLinejoin: 'miter',
                 strokeMiterlimit: 4,
