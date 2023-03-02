@@ -22,8 +22,9 @@ const ChoiceForm = ({ getSource }) => {
       <TextInput
         source={getSource('title')}
         shouldUnregister
+        required
       />
-      <ArrayInput source={getSource('options')}>
+      <ArrayInput source={getSource('options')} required>
         <SimpleFormIterator>
           <TextInput
             source='value'
@@ -56,7 +57,7 @@ const SliderForm = ({ getSource }) => (
       source={getSource('title')}
       shouldUnregister
     />
-    <ArrayInput source={getSource('options')}>
+    <ArrayInput source={getSource('options')} required>
       <SimpleFormIterator>
         <NumberInput
           source='value'
@@ -77,7 +78,7 @@ const SwiperForm = ({ getSource }) => (
       source={getSource('title')}
       shouldUnregister
     />
-    <ArrayInput source={getSource('options')}>
+    <ArrayInput source={getSource('options')} required>
       <SimpleFormIterator>
         <TextInput
           source='text'
@@ -114,7 +115,7 @@ const FillInBlankForm = ({ getBaseSource }) => (
           ...rest
         }) => {
           return scopedFormData && scopedFormData.type === fillInType.blank ? (
-            <ArrayInput source={getSource('options')}>
+            <ArrayInput required source={getSource('options')}>
               <SimpleFormIterator>
                 <TextInput />
               </SimpleFormIterator>
@@ -128,8 +129,16 @@ const FillInBlankForm = ({ getBaseSource }) => (
 
 const IntroPage = ({ getSource }) => (
   <Fragment>
+      <TextInput
+      source={getSource('title')}
+      required
+      multiline
+      shouldUnregister
+    />
     <TextInput
       source={getSource('text')}
+      required
+      multiline
       shouldUnregister
     />
     <TextInput

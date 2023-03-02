@@ -338,6 +338,9 @@ const schema = {
           type: 'string',
           enum: ['normal', 'intro', 'page'],
         },
+        title: {
+          type: 'string',
+        },
         text: {
           type: 'string',
         },
@@ -352,9 +355,6 @@ const schema = {
         },
         redirectDelay: {
           type: 'number',
-        },
-        title: {
-          type: 'string',
         },
         surveyIds: {
           type: 'array',
