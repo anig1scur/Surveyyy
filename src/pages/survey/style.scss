@@ -1,12 +1,39 @@
 .survey {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+  background-color: #668df2;
+  width: min(100vw, 540px);
+
+  .header {
+    width: 100%;
     display: flex;
-    width: 400px;
-    max-width: 300px;
-    justify-content: center;
+    position: sticky;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    background-color: #ffffff;
+    color: #6b7280;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    justify-content: space-between;
     align-items: center;
-    min-height: 100vh;
-    .footer {
-        display: flex;
-        justify-content: space-between;
-    }
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  .section {
+    display: flex;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer {
+    display: flex;
+    margin-top: 1.25rem;
+    justify-content: space-between;
+    width: 90%;
+  }
 }

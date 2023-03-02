@@ -6,17 +6,27 @@ import { FC } from 'react';
 import { BaseComponentProps } from '../../../common/types';
 
 export type Props = BaseComponentProps & {
-  title?: string;
+  title: string;
   text?: string;
+  onGoNext: () => void;
 };
 
 export const Intro: FC<Props> = (props) => {
-  const { title, text } = props;
+  const { title, text, onGoNext } = props;
 
   return (
     <div className='intro'>
-      <div className='title'>{title}</div>
+      <div className='title'>
+        {title.split(/\n/).map((line) => (
+          <div className='paragraph' key={line}>{line}</div>
+        ))}
+      </div>
       <div className='text'>{text}</div>
+      <div
+        className='start'
+        onClick={onGoNext}>
+        start
+      </div>
     </div>
   );
 };

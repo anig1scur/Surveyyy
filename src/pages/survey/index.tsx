@@ -1,6 +1,6 @@
 import { FC, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import './style.scss';
 import axios from 'axios';
 import {
   Survey as SurveyType,
@@ -14,10 +14,11 @@ import {
 } from '../../common/types';
 import Air from '@/assets/air-black.png';
 import Back from '@/assets/back-arrow.svg';
-import { Choice, FillInTheBlank, Slider, Swiper } from '../../components/Q';
 import { StoredContext } from '../../context';
+import Spin from '../../components/Loading/Spin';
 import { Page, Intro } from '../../components/P';
 import SwirlyProgress from '../../components/Progress/Spiral';
+import { Choice, FillInTheBlank, Slider, Swiper } from '../../components/Q';
 
 const QcomponentMap = {
   [QuestionType.choice]: Choice,
@@ -47,11 +48,7 @@ export type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = () => (
-  <div
-    className='bg-white mt-3 mx-5
-    flex rounded-lg justify-between max-w-2xl w-[90vw]
-    items-center shadow-md text-gray-500 text-xl font-[400]
-    sticky top-0 z-1'>
+  <div className='header'>
     <SwirlyProgress />
     <img
       className='max-h-14 mr-2 object-cover'
@@ -81,7 +78,7 @@ const Arrow: FC<ArrowProps> = (props) => {
 
 const Survey: FC<Props> = (props) => {
   const params = useParams();
-  const [survey, setSurvey] = useState<SurveyType | null>(props?.survey || null);
+  const [survey, setSurvey] = useState<SurveyType | null>(null);
   const { form, skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
@@ -145,14 +142,17 @@ const Survey: FC<Props> = (props) => {
 
   const renderP = (page: P) => {
     const Component = PcomponentMap[page.type];
-    return <Component {...page} />;
+    return (
+      <Component
+        {...page}
+        onGoNext={onGoNext}
+      />
+    );
   };
   const renderQ = (question: Q) => {
     const Component = QcomponentMap[question.type];
     return (
       <Component
-        // TODO: fixme
-        // @ts-ignore
         q={question}
         key={question.id}
         onChange={(data) =>
@@ -167,35 +167,44 @@ const Survey: FC<Props> = (props) => {
       />
     );
   };
-
+  const curType = survey && survey.sections[activeIdx].type;
   return (
-    survey && (
-      <div className='survey flex items-center flex-col'>
-        <Header
-          active={activeIdx}
-          total={survey.sections.length}
-          onGoBack={onGoBack}
-        />
-        <div className='flex flex-col items-center mx-5'>{renderS(survey.sections[activeIdx])}</div>
-        <div className='flex justify-between w-[90%] mt-5'>
-          <Arrow
-            onClick={() => {
-              if (activeIdx > 0) {
-                onGoBack();
-              }
-            }}
-          />
-          <Arrow
-            style={{ transform: 'rotate(180deg)' }}
-            onClick={() => {
-              if (activeIdx < survey.sections.length) {
-                onGoNext();
-              }
-            }}
-          />
-        </div>
-      </div>
-    )
+    <div className='survey'>
+      {!survey ? (
+        <Spin />
+      ) : (
+        <>
+          {/* just a hack of first intro page  */}
+          {curType !== PageType.intro && (
+            <Header
+              active={activeIdx}
+              total={survey.sections.length}
+              onGoBack={onGoBack}
+            />
+          )}
+          <div className='section'>{renderS(survey.sections[activeIdx])}</div>
+          {curType !== PageType.intro && (
+            <div className='footer'>
+              <Arrow
+                onClick={() => {
+                  if (activeIdx > 0) {
+                    onGoBack();
+                  }
+                }}
+              />
+              <Arrow
+                style={{ transform: 'rotate(180deg)' }}
+                onClick={() => {
+                  if (activeIdx < survey.sections.length) {
+                    onGoNext();
+                  }
+                }}
+              />
+            </div>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 
