@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { Admin, Resource, CustomRoutes, ListGuesser } from 'react-admin'; // eslint-disable-line import/no-unresolved
+import './style.scss'
+import { Admin, Resource, CustomRoutes } from 'react-admin'; // eslint-disable-line import/no-unresolved
 import { Route } from 'react-router-dom';
 import { fetchUtils } from 'ra-core';
 
