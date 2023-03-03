@@ -201,6 +201,11 @@ const SurveyComponent = () => (
               getSource, // A function to get the valid source inside an ArrayInput
               ...rest
             } = props;
+            // bug of React Admin or my fault use?
+            if(scopedFormData.type === QuestionType.choice) {
+              scopedFormData.allowMultiple = scopedFormData.allowMultiple || false;
+              scopedFormData.allowCustom = scopedFormData.allowCustom || false;
+            }
             return scopedFormData && scopedFormData.expanded && renderSection(scopedFormData.type, getSource);
           }}
         </FormDataConsumer>
