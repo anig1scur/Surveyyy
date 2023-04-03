@@ -12,7 +12,7 @@ import {
   BaseComponentProps,
   PageType,
 } from '../../common/types';
-import Air from '@/assets/air-black.png';
+import Air from '@/assets/air-white.png';
 import Next from '@/assets/next-arrow.svg';
 import { StoredContext } from '../../context';
 import Spin from '../../components/Loading/Spin';
@@ -171,16 +171,16 @@ const Survey: FC<Props> = (props) => {
   const css =
     !curType || curType === 'intro'
       ? {
-          '--bg-color': '#668df2',
-          '--font-color': 'white',
-          '--section-bg-color': '#668df2',
+          '--bg-color': '#48D1CC',
+          '--font-color': '#FFF5EE',
+          '--section-bg-color': '#48D1CC',
         }
       : {
           '--bg-color': 'white',
-          '--font-color': '#141B41',
+          '--font-color': '#FFF5EE',
           '--font-color-light': '#8798AD',
-          '--section-bg-color': '#E9EFFF',
-          '--foot-bg-color': '#E9EFFF',
+          '--section-bg-color': '#48D1CC',
+          '--foot-bg-color': '#48D1CC',
         };
   return (
     <div
