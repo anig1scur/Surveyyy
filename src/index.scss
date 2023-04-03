@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "avgr";
+  src: url("@/assets/fonts/itc_avant_garde_gothic_demi.ttf") format("opentype");
+}
+@font-face {
+  font-family: "avgrLight";
+  src: url("@/assets/fonts/itc_avant_garde_gothic_book.woff") format("woff");
+}
+@font-face {
+  font-family: "avgrBold";
+  src: url("@/assets/fonts/itc_avant_garde_gothic_bold.ttf") format("opentype");
+}
+
 #surveyyy {
   min-height: 100vh;
   @supports (-webkit-touch-callout: none) {

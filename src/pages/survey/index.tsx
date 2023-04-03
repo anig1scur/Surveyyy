@@ -12,7 +12,7 @@ import {
   BaseComponentProps,
   PageType,
 } from '../../common/types';
-import Air from '@/assets/air-black.png';
+import Air from '@/assets/air-white.png';
 import Next from '@/assets/next-arrow.svg';
 import { StoredContext } from '../../context';
 import Spin from '../../components/Loading/Spin';
