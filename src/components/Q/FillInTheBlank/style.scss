@@ -6,49 +6,35 @@
   color: black;
   line-height: 2;
 
+  .menu {
+    padding: 0 3px;
+    border-radius: 16px;
+    background-color: white;
+    border: 1px solid #ccc;
+    .option {
+      display: block;
+      text-align: center;
+      width: max-content;
+      cursor: pointer;
+      margin: 5px;
+      text-align: left;
+      outline: none;
+      &:hover {
+        background: rgba(255, 165, 0, 0.2);
+      }
+    }
+  }
+
   .blank {
     cursor: pointer;
-    position: relative;
     display: inline;
     background-color: #5a47a533;
     border-bottom: 2px solid rgb(64, 49, 126);
+    margin-bottom: 2px;
 
     &.selected {
       background-color: rgba(255, 165, 0, 0.2);
       border-bottom: 2px solid orange;
-    }
-
-    &:hover,
-    &.show-menu {
-      .menu {
-        display: inline;
-        &.hide {
-          display: none;
-        }
-      }
-    }
-    .menu {
-      display: none;
-      padding: 5px;
-      position: absolute;
-      top: 100%;
-      left: 0%;
-      z-index: 1;
-      background-color: white;
-      border: 1px solid #ccc;
-
-      .option {
-        display: block;
-        text-align: center;
-        width: max-content;
-        cursor: pointer;
-        margin: 5px;
-        text-align: left;
-        outline: none;
-        &:hover {
-          background: rgba(255, 165, 0, 0.2);
-        }
-      }
     }
   }
 }

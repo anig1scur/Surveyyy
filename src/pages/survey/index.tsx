@@ -33,7 +33,7 @@ const PcomponentMap = {
 };
 
 export type Props = {
-  survey?: SurveyType;
+  survey: SurveyType | null;
 };
 
 export enum ActionType {
@@ -78,7 +78,7 @@ const Arrow: FC<ArrowProps> = (props) => {
 
 const Survey: FC<Props> = (props) => {
   const params = useParams();
-  const [survey, setSurvey] = useState<SurveyType | null>(null);
+  const [survey, setSurvey] = useState<SurveyType | null>(props.survey);
   const { form, skipped, setForm, setProgress } = useContext(StoredContext);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const [lastChoice, setLastChoice] = useState<ActionType>(ActionType.next);
