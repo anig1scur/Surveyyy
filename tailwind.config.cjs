@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       backgroundImage: {
         'air': "url('./assets/air.jpg')",
-        'air-black': "url('./assets/air-black.png')",
+        'air-white': "url('./assets/air-white.png')",
         'bg': "url('./assets/bg.jpg')",
         'air-icon': "url('./assets/air2.png')",
       }
